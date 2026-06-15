@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>CHECKLIST KIỂM TRA VỆ SINH</title>
+    <title>CHECKLIST KIỂM TRA VỆ SINH NHÀ HÀNG</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <style>
         * {
@@ -39,16 +39,16 @@
         }
 
         .btn-pdf {
-            background-color: #007aff;
+            background-color: #34c759;
             color: white;
             border: none;
-            padding: 12px;
-            font-size: 14px;
-            font-weight: 600;
+            padding: 14px;
+            font-size: 15px;
+            font-weight: 700;
             border-radius: 8px;
             width: 100%;
             cursor: pointer;
-            box-shadow: 0 2px 8px rgba(0,122,255,0.2);
+            box-shadow: 0 2px 8px rgba(52,199,89,0.3);
         }
 
         .container {
@@ -231,79 +231,97 @@
             cursor: pointer;
         }
 
-        /* KHU VỰC ĐÚNG BIỂU MẪU GỐC - ĐÃ FIX TRIỆT ĐỂ LỖI TRANG TRẮNG SAFARI */
+        /* KHU VỰC HIỂN THỊ BIỂU MẪU XEM TRƯỚC: Cho phép Safari nhìn thấy để render ảnh chính xác */
+        .preview-report-title {
+            text-align: center;
+            margin: 30px 0 10px 0;
+            font-size: 14px;
+            font-weight: bold;
+            color: #666;
+            text-transform: uppercase;
+        }
+
+        .pdf-scroll-wrapper {
+            width: 100%;
+            overflow-x: auto; /* Tạo thanh cuộn ngang trên điện thoại để không làm hỏng cấu trúc bảng */
+            background: #ffffff;
+            border: 1px solid #d1d5da;
+            border-radius: 8px;
+            padding: 5px;
+            margin-bottom: 40px;
+        }
+
         #pdf-render-area {
-            position: absolute;
-            left: -9999px;
-            top: -9999px;
-            display: block; /* Giữ block ổn định để Safari tính toán kích thước chiều cao chính xác */
             background: #ffffff;
             color: #000000;
-            width: 790px; /* Khóa kích thước chiều rộng cố định để tính trang */
-            padding: 25px;
+            width: 750px; /* Khóa chiều rộng chuẩn để tính toán tỷ lệ phân trang A4 */
+            padding: 20px;
             box-sizing: border-box;
         }
 
         .pdf-header {
             text-align: center;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
         }
 
         .pdf-title {
             font-family: "Times New Roman", Times, serif;
-            font-size: 22px;
+            font-size: 18px;
             font-weight: bold;
-            margin: 0 0 10px 0;
+            margin: 0 0 8px 0;
             text-transform: uppercase;
         }
 
         .pdf-meta-text {
             font-family: "Times New Roman", Times, serif;
-            font-size: 14px;
-            margin: 5px 0;
+            font-size: 13px;
+            margin: 4px 0;
         }
 
         #pdf-render-area table {
             width: 100%;
             border-collapse: collapse;
             font-family: "Times New Roman", Times, serif;
-            font-size: 12px;
+            font-size: 11px;
         }
 
         #pdf-render-area th, #pdf-render-area td {
-            border: 1px solid #000000;
-            padding: 5px 6px;
+            border: 1px solid #000000 !important;
+            padding: 4px 5px;
             vertical-align: middle;
+            color: #000000;
         }
 
         #pdf-render-area th {
             font-weight: bold;
             text-align: center;
             text-transform: uppercase;
+            background-color: #f2f2f2 !important;
+            -webkit-print-color-adjust: exact;
         }
 
-        /* Dòng tiêu đề phân khu: In đậm, viết hoa toàn bộ và căn giữa như mẫu ảnh */
         .pdf-sec-row {
             font-weight: bold;
             text-align: center;
             text-transform: uppercase;
-            background-color: #ffffff !important;
-            font-size: 12px;
+            background-color: #fafafa !important;
+            font-size: 11px;
+            -webkit-print-color-adjust: exact;
         }
 
         .pdf-box-check {
             display: inline-block;
-            width: 13px;
-            height: 13px;
+            width: 12px;
+            height: 12px;
             border: 1px solid #000000;
             text-align: center;
-            line-height: 12px;
-            font-size: 11px;
+            line-height: 11px;
+            font-size: 10px;
             font-weight: bold;
         }
 
-        /* Thuộc tính CSS ép ngắt dòng an toàn cho iOS */
-        tr {
+        /* Khống chế dòng không bị ngắt rách nửa vời trên iOS */
+        #pdf-render-area tr {
             page-break-inside: avoid !important;
             break-inside: avoid !important;
         }
@@ -313,50 +331,54 @@
 
     <div class="header-bar">
         <h1>Giám Sát Vệ Sinh Nhà Hàng</h1>
-        <button class="btn-pdf" onclick="generateProfessionalPDF()">Xuất Báo Cáo PDF (Mở Tab mới trên iPhone)</button>
+        <button class="btn-pdf" onclick="generateProfessionalPDF()">TẢI XUẤT FILE PDF BÁO CÁO</button>
     </div>
 
     <div class="container" id="mobile-view">
         <div class="meta-card">
             <div class="meta-field">
                 <label>Người Kiểm Tra</label>
-                <input type="text" id="main-inspector" placeholder="Họ và tên người kiểm tra...">
+                <input type="text" id="main-inspector" placeholder="Họ và tên..." oninput="syncMetaData()">
             </div>
             <div class="meta-field">
                 <label>Ngày Kiểm Tra</label>
-                <input type="date" id="main-date">
+                <input type="date" id="main-date" onchange="syncMetaData()">
             </div>
         </div>
 
         <div id="dynamic-checklist-container"></div>
-    </div>
 
-    <div id="pdf-render-area">
-        <div class="pdf-header">
-            <div class="pdf-title">CHECKLIST KIỂM TRA VỆ SINH</div>
-            <div class="pdf-meta-text">
-                Người kiểm tra: <span id="pdf-ins" style="border-bottom: 1px dotted #000; padding-right: 150px;">..................................</span> 
-                &nbsp;&nbsp;&nbsp;&nbsp;
-                NGÀY: <span id="pdf-date" style="border-bottom: 1px dotted #000; padding-right: 80px;">....................</span>
+        <div class="preview-report-title">Bản xem trước biểu mẫu in ấn (A4)</div>
+        
+        <div class="pdf-scroll-wrapper">
+            <div id="pdf-render-area">
+                <div class="pdf-header">
+                    <div class="pdf-title">CHECKLIST KIỂM TRA VỆ SINH</div>
+                    <div class="pdf-meta-text">
+                        Người kiểm tra: <span id="pdf-ins" style="border-bottom: 1px dotted #000; padding-right: 120px;">..................................</span> 
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        NGÀY: <span id="pdf-date" style="border-bottom: 1px dotted #000; padding-right: 80px;">....................</span>
+                    </div>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th style="width: 6%;">TT</th>
+                            <th style="width: 54%;">HẠNG MỤC KT</th>
+                            <th style="width: 8%;">K ĐẠT</th>
+                            <th style="width: 8%;">ĐẠT</th>
+                            <th style="width: 24%;">GHI CHÚ</th>
+                        </tr>
+                    </thead>
+                    <tbody id="pdf-table-body">
+                        </tbody>
+                </table>
             </div>
         </div>
-        <table>
-            <thead>
-                <tr>
-                    <th style="width: 6%;">TT</th>
-                    <th style="width: 54%;">HẠNG MỤC KT</th>
-                    <th style="width: 8%;">K ĐẠT</th>
-                    <th style="width: 8%;">ĐẠT</th>
-                    <th style="width: 24%;">GHI CHÚ</th>
-                </tr>
-            </thead>
-            <tbody id="pdf-table-body"></tbody>
-        </table>
     </div>
 
     <script>
-        document.getElementById('main-date').value = new Date().toISOString().slice(0,10);
-
+        // Cơ sở dữ liệu checklist gốc đầy đủ
         const checklistData = [
             {
                 "section": "KHU VỰC NGOÀI NHÀ HÀNG ( ĐỘI XE )",
@@ -468,7 +490,7 @@
 
         const imageStore = {};
 
-        // Tạo thẻ Card cho iPhone dễ nhập liệu
+        // Khởi tạo giao diện thẻ bấm cho điện thoại
         const containerHtml = document.getElementById('dynamic-checklist-container');
         checklistData.forEach(sec => {
             let secHtml = `<div class="section-title">${sec.section}</div>`;
@@ -481,21 +503,21 @@
                         </div>
                         <div class="status-selector">
                             <div class="status-btn">
-                                <input type="radio" name="mobstatus-${item.id}" value="KDAT" id="kdat-${item.id}">
+                                <input type="radio" name="mobstatus-${item.id}" value="KDAT" id="kdat-${item.id}" change="updateTableInline('${item.id}')" onchange="updateTableInline('${item.id}')">
                                 <label for="kdat-${item.id}" class="status-label">K. ĐẠT</label>
                             </div>
                             <div class="status-btn">
-                                <input type="radio" name="mobstatus-${item.id}" value="DAT" id="dat-${item.id}">
+                                <input type="radio" name="mobstatus-${item.id}" value="DAT" id="dat-${item.id}" change="updateTableInline('${item.id}')" onchange="updateTableInline('${item.id}')">
                                 <label for="dat-${item.id}" class="status-label">ĐẠT</label>
                             </div>
                         </div>
                         <div class="upload-zone">
-                            <label class="lbl-upload" for="file-${item.id}">📸 Thêm ảnh minh chứng</label>
+                            <label class="lbl-upload" for="file-${item.id}">📸 Đính kèm ảnh</label>
                             <input type="file" id="file-${item.id}" class="file-input" accept="image/*" onchange="handleMobileImage(event, '${item.id}')">
                             <div id="preview-${item.id}" class="preview-container"></div>
                         </div>
                         <div class="note-wrapper">
-                            <textarea class="note-input" id="note-${item.id}" placeholder="Nhập lý do hoặc ghi chú..."></textarea>
+                            <textarea class="note-input" id="note-${item.id}" placeholder="Ghi chú lỗi phát sinh..." oninput="updateTableInline('${item.id}')"></textarea>
                         </div>
                     </div>
                 `;
@@ -503,6 +525,60 @@
             containerHtml.innerHTML += secHtml;
         });
 
+        // Thiết lập ngày mặc định ban đầu
+        document.getElementById('main-date').value = new Date().toISOString().slice(0,10);
+
+        // Khởi tạo dựng cấu trúc bảng biểu xem trước
+        const tbody = document.getElementById('pdf-table-body');
+        checklistData.forEach(sec => {
+            const sRow = document.createElement('tr');
+            sRow.innerHTML = `<td colspan="5" class="pdf-sec-row">${sec.section}</td>`;
+            tbody.appendChild(sRow);
+
+            sec.items.forEach(item => {
+                const row = document.createElement('tr');
+                row.id = `table-row-${item.id}`;
+                row.innerHTML = `
+                    <td style="text-align:center; font-weight:bold;">${item.id}</td>
+                    <td style="text-align:left;">${item.text}</td>
+                    <td style="text-align:center; padding: 4px 0;"><div class="pdf-box-check" id="pdf-kdat-check-${item.id}"></div></td>
+                    <td style="text-align:center; padding: 4px 0;"><div class="pdf-box-check" id="pdf-dat-check-${item.id}"></div></td>
+                    <td style="text-align:left;">
+                        <div id="pdf-note-text-${item.id}" style="font-size:10px;"></div>
+                        <div id="pdf-img-wrap-${item.id}"></div>
+                    </td>
+                `;
+                tbody.appendChild(row);
+            });
+        });
+        
+        syncMetaData();
+
+        // Đồng bộ họ tên và ngày tháng
+        function syncMetaData() {
+            const name = document.getElementById('main-inspector').value || '..................................';
+            const rawDate = document.getElementById('main-date').value;
+            let formattedDate = '....................';
+            if(rawDate) {
+                const parts = rawDate.split('-');
+                formattedDate = `${parts[2]}/${parts[1]}/${parts[0]}`;
+            }
+            document.getElementById('pdf-ins').innerText = name;
+            document.getElementById('pdf-date').innerText = formattedDate;
+        }
+
+        // Tự động đồng bộ Realtime giá trị tích chọn từ Card xuống Bảng biểu xem trước phía dưới
+        function updateTableInline(id) {
+            const isKDat = document.getElementById(`kdat-${id}`).checked;
+            const isDat = document.getElementById(`dat-${id}`).checked;
+            const noteVal = document.getElementById(`note-${id}`).value;
+
+            document.getElementById(`pdf-kdat-check-${id}`).innerHTML = isKDat ? 'X' : '';
+            document.getElementById(`pdf-dat-check-${id}`).innerHTML = isDat ? '✓' : '';
+            document.getElementById(`pdf-note-text-${id}`).innerText = noteVal;
+        }
+
+        // Xử lý nén ảnh đồ họa minh chứng
         function handleMobileImage(event, id) {
             const container = document.getElementById('preview-' + id);
             container.innerHTML = '';
@@ -511,6 +587,8 @@
                 const reader = new FileReader();
                 reader.onload = function(e) {
                     imageStore[id] = e.target.result;
+                    
+                    // Hiện ảnh trên khung nhập liệu Card
                     const box = document.createElement('div');
                     box.className = 'img-box';
                     const img = document.createElement('img');
@@ -522,88 +600,49 @@
                         container.innerHTML = '';
                         document.getElementById('file-' + id).value = '';
                         delete imageStore[id];
+                        document.getElementById(`pdf-img-wrap-${id}`).innerHTML = '';
                     };
                     box.appendChild(img);
                     box.appendChild(btn);
                     container.appendChild(box);
+
+                    // Đồng bộ nén ảnh nhúng thẳng vào ô của bảng ẩn A4 phía dưới
+                    document.getElementById(`pdf-img-wrap-${id}`).innerHTML = `
+                        <img src="${e.target.result}" style="max-width:110px; max-height:80px; margin-top:4px; border:0.5px solid #000; display:block;">
+                    `;
                 };
                 reader.readAsDataURL(file);
             }
         }
 
-        // Chuyển đổi dữ liệu và xử lý mở tab mới an toàn cho Safari iPhone
+        // Thực thi xuất xuất bản tệp tin PDF tương thích 100% iOS Safari / Android
         function generateProfessionalPDF() {
-            const inspectorName = document.getElementById('main-inspector').value || '..................................';
-            const rawDate = document.getElementById('main-date').value;
-            let formattedDate = '....................';
-            if(rawDate) {
-                const parts = rawDate.split('-');
-                formattedDate = `${parts[2]}/${parts[1]}/${parts[0]}`;
-            }
-            
-            document.getElementById('pdf-ins').innerText = inspectorName;
-            document.getElementById('pdf-date').innerText = formattedDate;
-
-            const tbody = document.getElementById('pdf-table-body');
-            tbody.innerHTML = '';
-
-            checklistData.forEach(sec => {
-                const sRow = document.createElement('tr');
-                sRow.innerHTML = `<td colspan="5" class="pdf-sec-row">${sec.section}</td>`;
-                tbody.appendChild(sRow);
-
-                sec.items.forEach(item => {
-                    const row = document.createElement('tr');
-                    
-                    const isKDat = document.getElementById(`kdat-${item.id}`).checked;
-                    const isDat = document.getElementById(`dat-${item.id}`).checked;
-                    const noteText = document.getElementById(`note-${item.id}`).value || '';
-                    
-                    const kdatTick = isKDat ? '<div class="pdf-box-check">X</div>' : '<div class="pdf-box-check"></div>';
-                    const datTick = isDat ? '<div class="pdf-box-check">✓</div>' : '<div class="pdf-box-check"></div>';
-                    
-                    let imgHtml = '';
-                    if (imageStore[item.id]) {
-                        imgHtml = `<br><img src="${imageStore[item.id]}" style="max-width:130px; max-height:85px; margin-top:4px; border:0.5px solid #000; display:block;">`;
-                    }
-
-                    row.innerHTML = `
-                        <td style="text-align:center;">${item.id}</td>
-                        <td style="text-align:left;">${item.text}</td>
-                        <td style="text-align:center; padding: 4px 0;">${kdatTick}</td>
-                        <td style="text-align:center; padding: 4px 0;">${datTick}</td>
-                        <td style="text-align:left;">
-                            <div style="font-size:10px; font-weight:normal;">${noteText}</div>
-                            ${imgHtml}
-                        </td>
-                    `;
-                    tbody.appendChild(row);
-                });
-            });
-
+            const rawDate = document.getElementById('main-date').value || 'Bao_Cao';
             const pdfArea = document.getElementById('pdf-render-area');
 
-            // Cấu hình ngắt trang tránh phân mảnh và lỗi rác trắng của iOS Safari
+            // Cấu hình ngắt trang thông minh, ép gom dòng và ngăn chặn sinh trang trống
             const opt = {
                 margin:       [12, 10, 12, 10],
-                filename:     'Checklist_Ve_Sinh.pdf',
+                filename:     'Checklist_Ve_Sinh_' + rawDate + '.pdf',
                 image:        { type: 'jpeg', quality: 0.95 },
                 html2canvas:  { scale: 2, useCORS: true, logging: false },
                 jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' },
-                // Thuật toán 'avoid-all' ép ép chặt các hàng không cho tách lẻ dòng trống
                 pagebreak:    { mode: ['avoid-all', 'css'], before: '.pdf-sec-row' }
             };
 
-            // GIẢI PHÁP CHO IPHONE: Tạo và mở PDF trên một Tab mới để vượt rào bảo mật Safari
-            html2pdf().set(opt).from(pdfArea).outputPdf('bloburl').then((blobUrl) => {
-                if (blobUrl) {
-                    window.open(blobUrl, '_blank');
-                } else {
-                    alert("Có lỗi xảy ra khi tạo báo cáo.");
-                }
+            // Ép sinh nhị phân và tải trực tiếp bằng giả lập click thẻ liên kết (Vượt rào bảo mật Safari của iPhone)
+            html2pdf().set(opt).from(pdfArea).outputPdf('blob').then((blob) => {
+                const fileUrl = URL.createObjectURL(blob);
+                const downloadLink = document.createElement('a');
+                downloadLink.href = fileUrl;
+                downloadLink.download = 'Checklist_Ve_Sinh_' + rawDate + '.pdf';
+                document.body.appendChild(downloadLink);
+                downloadLink.click();
+                document.body.removeChild(downloadLink);
+                URL.revokeObjectURL(fileUrl);
             }).catch(err => {
                 console.error(err);
-                alert("Không thể xuất file trên trình duyệt này.");
+                alert("Không thể khởi chạy xuất file. Vui lòng chạy trên ứng dụng Safari hoặc Chrome gốc của điện thoại.");
             });
         }
     </script>

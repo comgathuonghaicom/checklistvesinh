@@ -361,4 +361,288 @@
                 <div class="pdf-header">
                     <div class="pdf-title">CHECKLIST KIỂM TRA VỆ SINH</div>
                     <div class="pdf-meta-text">
-                        Người kiểm tra: <span id="pdf-ins" style="border-bottom: 1px dotted #000; padding-right: 120px;">................
+                        Người kiểm tra: <span id="pdf-ins" style="border-bottom: 1px dotted #000; padding-right: 120px;">..................................</span> 
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        NGÀY: <span id="pdf-date" style="border-bottom: 1px dotted #000; padding-right: 80px;">....................</span>
+                    </div>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th style="width: 6%;">TT</th>
+                            <th style="width: 54%;">HẠNG MỤC KT</th>
+                            <th style="width: 8%;">K ĐẠT</th>
+                            <th style="width: 8%;">ĐẠT</th>
+                            <th style="width: 24%;">GHI CHÚ</th>
+                        </tr>
+                    </thead>
+                    <tbody id="pdf-table-body">
+                        </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const checklistData = [
+            {
+                "section": "KHU VỰC NGOÀI NHÀ HÀNG ( ĐỘI XE )",
+                "items": [
+                    {"id": 1, "text": "Cổng rào ( cửa cuốn, cửa xếp,...) "},
+                    {"id": 2, "text": "Hàng rào, tường rào, mái hiên"},
+                    {"id": 3, "text": "Bảng hiệu ( alu, đèn led )"},
+                    {"id": 4, "text": "Vỉa hè xung quanh khuôn viên Nhà hàng"},
+                    {"id": 5, "text": "Tác phong, đồng phục đội xe"}
+                ]
+            },
+            {
+                "section": "KHU PHỤC VỤ KHÁCH HÀNG",
+                "items": [
+                    {"id": 6, "text": "Đèn điện, máy lạnh"},
+                    {"id": 7, "text": "Cửa kính, vách kính, vách tường, cửa sổ"},
+                    {"id": 9, "text": "Bếp cồn, mâm tiếp món, mâm nước mắm + mắm nêm."},
+                    {"id": 10, "text": "Thang máy , Bàn tiếp thực"},
+                    {"id": 11, "text": "Hộp đèn quảng cáo treo tường"},
+                    {"id": 12, "text": "Vệ sinh, sắp xếp ngăn nắp bàn ghế"},
+                    {"id": 13, "text": "Vệ sinh khay nước chấm, hũ ớt"},
+                    {"id": 14, "text": "Vệ sinh hộp muỗng, đũa, mâm lấy đồ thêm"},
+                    {"id": 15, "text": "Sàn nhà phải khô ráo, sạch sẽ"},
+                    {"id": 16, "text": "Vệ sinh cầu thang, trần nhà"},
+                    {"id": 17, "text": "Tác phong, đồng phục, bảng tên nhân viên"},
+                    {"id": 18, "text": "Menu giấy , Satndee menu điện tử ( số lượng, bảo quản, vệ sinh...)"}
+                ]
+            },
+            {
+                "section": "KHU VỰC BẾP",
+                "items": [
+                    {"id": 22, "text": "Kiểm tra dụng cụ chế biến ( xoong nồi, vá, dao, thớt ...)"},
+                    {"id": 23, "text": "Kiểm tra kệ, tủ inox, ngăn kéo tủ, bàn ra đồ"},
+                    {"id": 24, "text": "Kiểm tra ngẫu nhiên tô, chén, dĩa,"},
+                    {"id": 25, "text": "Bếp nướng, lò cá lu"},
+                    {"id": 26, "text": "Kiểm tra máng khói, quạt hút"},
+                    {"id": 27, "text": "Kiểm tra kho gas, toàn bộ bếp khè"},
+                    {"id": 28, "text": "Kiểm tra máy cắt thịt ( vệ sinh, bảo trì )"},
+                    {"id": 29, "text": "Tác phong đồng phục nhân viên"},
+                    {"id": 30, "text": "Nước lèo, nước trụng luôn sẵn sàng"},
+                    {"id": 31, "text": "Bảo quản thực phẩm có dùng màng bọc hay không"},
+                    {"id": 32, "text": "Bếp chiên dầu có vớt cặn hay không"},
+                    {"id": 33, "text": "Kiểm tra tất cả các loại cân ( cân cơ, cân điện tử )"},
+                    {"id": 34, "text": "Kiểm tra bồn rửa ( vòi nước, vệ sinh )"},
+                    {"id": 35, "text": "Kiểm tra vệ sinh khu vực làm cá lu"},
+                    {"id": 36, "text": "Kiểm tra khu vực để rác"}
+                ]
+            },
+            {
+                "section": "KHU VỰC PHA CHẾ / QUẦY NƯỚC",
+                "items": [
+                    {"id": 37, "text": "Kiểm tra ly, rổ để ly trà đá, ly mía, ly sinh tố...."},
+                    {"id": 38, "text": "Kiểm tra thùng đá, bồn rửa ly, vòi nước"},
+                    {"id": 39, "text": "Kiểm tra thố – nắp - muỗng khúc bạch"},
+                    {"id": 40, "text": "Kiểm tra các loại chè ( đậu xanh, lựu, khúc bạch ra món.....)"},
+                    {"id": 41, "text": "Kiểm tra vệ sinh tủ mát pha chế, tủ chè, tủ dụng cụ chè gỏi, tủ mát đồ về"},
+                    {"id": 42, "text": "Kiểm tra định lượng, số lượng toàn bộ các món ra đồ về"},
+                    {"id": 43, "text": "Kiểm tra kệ, tủ inox, ngăn kéo tủ, bàn ra đồ"},
+                    {"id": 44, "text": "Kiểm tra đồng phục + tác phong làm việc nv đứng khâu ( bao tay, nón, yếm..... đảm bảo VSATTP)"},
+                    {"id": 45, "text": "Kiểm tra bàn ra chè, bàn cuốn gỏi, quy trình ra món đảm bảo VSATTP..."},
+                    {"id": 46, "text": "Kiểm tra quy trình bảo quản nguyên vật liệu"},
+                    {"id": 47, "text": "Kiểm tra vệ sinh công cụ dụng cụ ( máy mía, mâm pha chế......)"},
+                    {"id": 48, "text": "Kiểm tra sàn nhà , khu vực để túi mang về"},
+                    {"id": 49, "text": "Kiểm tra số lượng hàng tồn và bảo quản hàng qua ngày"}
+                ]
+            },
+            {
+                "section": "KHU VỰC NƯỚC CHẤM",
+                "items": [
+                    {"id": 53, "text": "Kiểm tra kệ, tủ inox, ngăn kéo tủ, bàn ra đồ, sàn nhà"},
+                    {"id": 54, "text": "Kiểm tra ngẫu nhiên tô, chén ,dĩa,"},
+                    {"id": 55, "text": "Kiểm tra đồ chua- nước mắm – mắm nêm – dưa giá – đồ chua ..."},
+                    {"id": 56, "text": "Tác phong đồng phục nhân viên"},
+                    {"id": 57, "text": "Kiểm tra quy trình ra món sẵn phục vụ khách ( số lượng mắm, dưa giá , đồ chua, bún, bánh tráng .... - kiểm tra quy trình bảo quản nguyên vật liệu"}
+                ]
+            },
+            {
+                "section": "KHU VỰC RỬA CHÉN & SƠ CHẾ RAU",
+                "items": [
+                    {"id": 58, "text": "Kiểm tra kệ, tủ inox, ngăn kéo tủ, bàn để chén dĩa kv rửa chén"},
+                    {"id": 59, "text": "Kiểm tra hoạt động máy rửa chén, bồn rửa chén"},
+                    {"id": 60, "text": "Kiểm tra ngẫu nhiên tô, chén ,dĩa"},
+                    {"id": 61, "text": "Kiểm tra vệ sinh rổ để chén dĩa, rổ để muỗng đũa"},
+                    {"id": 62, "text": "Kiểm tra kệ, tủ inox, ngăn kéo tủ, bàn để chén dĩa kv rau"},
+                    {"id": 63, "text": "Kiểm tra bồn rửa (vòi nước, vệ sinh, máy ozone...)"},
+                    {"id": 64, "text": "Kiểm tra ngẫu nhiên vệ sinh khay rau ."},
+                    {"id": 65, "text": "Kiểm tra định lượng rau ra mâm, tủ rau, hệ thống phun sương"},
+                    {"id": 66, "text": "Kiểm tra quy trình bảo quản rau .."}
+                ]
+            },
+            {
+                "section": "KHU VỰC VỆ SINH (WC)",
+                "items": [
+                    {"id": 67, "text": "Kiểm tra gương soi , bồn cầu, sàn nhà, vách ngăn,"},
+                    {"id": 68, "text": "Kiểm tra bồn rửa mặt ( vòi nước, ....)"}
+                ]
+            },
+            {
+                "section": "KHU VỰC NHÂN VIÊN & HẠ TẦNG KHÁC",
+                "items": [
+                    {"id": 69, "text": "Kiểm tra sàn phơi đồ, wc"},
+                    {"id": 70, "text": "Kiểm tra đèn, quạt, thiết bị điện , rèm ngủ kv nhân viên"},
+                    {"id": 71, "text": "Kiểm tra cầu thang lên xuống lầu 2, đổ rác"},
+                    {"id": 72, "text": "Kiểm tra kệ giày dép nhân viên"},
+                    {"id": 73, "text": "Kiểm tra vị trí miệng cống thoát nước"}
+                ]
+            }
+        ];
+
+        const imageStore = {};
+
+        // Xây dựng cấu trúc thẻ form Mobile
+        const containerHtml = document.getElementById('dynamic-checklist-container');
+        checklistData.forEach(sec => {
+            let secHtml = `<div class="section-title">${sec.section}</div>`;
+            sec.items.forEach(item => {
+                secHtml += `
+                    <div class="item-card">
+                        <div class="item-main">
+                            <span class="item-number">${item.id}</span>
+                            <div class="item-text">${item.text}</div>
+                        </div>
+                        <div class="status-selector">
+                            <div class="status-btn">
+                                <input type="radio" name="mobstatus-${item.id}" value="KDAT" id="kdat-${item.id}" onchange="updateTableInline('${item.id}')">
+                                <label for="kdat-${item.id}" class="status-label">K. ĐẠT</label>
+                            </div>
+                            <div class="status-btn">
+                                <input type="radio" name="mobstatus-${item.id}" value="DAT" id="dat-${item.id}" onchange="updateTableInline('${item.id}')">
+                                <label for="dat-${item.id}" class="status-label">ĐẠT</label>
+                            </div>
+                        </div>
+                        <div class="upload-zone">
+                            <label class="lbl-upload" for="file-${item.id}">📸 Đính kèm ảnh</label>
+                            <input type="file" id="file-${item.id}" class="file-input" accept="image/*" onchange="handleMobileImage(event, '${item.id}')">
+                            <div id="preview-${item.id}" class="preview-container"></div>
+                        </div>
+                        <div class="note-wrapper">
+                            <textarea class="note-input" id="note-${item.id}" placeholder="Ghi chú lỗi phát sinh..." oninput="updateTableInline('${item.id}')"></textarea>
+                        </div>
+                    </div>
+                `;
+            });
+            containerHtml.innerHTML += secHtml;
+        });
+
+        document.getElementById('main-date').value = new Date().toISOString().slice(0,10);
+
+        // ĐỒNG BỘ DỮ LIỆU VÀO MỘT BẢNG PHẲNG DUY NHẤT ĐỂ TRÁNH LỖI PHÂN TÁCH TRANG TRẮNG CỦA WEBKIT
+        const tbody = document.getElementById('pdf-table-body');
+        checklistData.forEach(sec => {
+            // Hàng tiêu đề nhóm nằm chung trong Table
+            const sRow = document.createElement('tr');
+            sRow.className = 'pdf-section-tr';
+            sRow.innerHTML = `<td colspan="5" class="pdf-sec-row">${sec.section}</td>`;
+            tbody.appendChild(sRow);
+
+            sec.items.forEach(item => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td style="text-align:center; font-weight:bold;">${item.id}</td>
+                    <td style="text-align:left;">${item.text}</td>
+                    <td style="text-align:center; padding: 5px 0;"><div class="pdf-box-check" id="pdf-kdat-check-${item.id}"></div></td>
+                    <td style="text-align:center; padding: 5px 0;"><div class="pdf-box-check" id="pdf-dat-check-${item.id}"></div></td>
+                    <td style="text-align:left;">
+                        <div id="pdf-note-text-${item.id}" style="font-size:10px; word-break: break-word;"></div>
+                        <div id="pdf-img-wrap-${item.id}"></div>
+                    </td>
+                `;
+                tbody.appendChild(row);
+            });
+        });
+
+        syncMetaData();
+
+        function syncMetaData() {
+            const name = document.getElementById('main-inspector').value || '..................................';
+            const rawDate = document.getElementById('main-date').value;
+            let formattedDate = '....................';
+            if(rawDate) {
+                const parts = rawDate.split('-');
+                formattedDate = `${parts[2]}/${parts[1]}/${parts[0]}`;
+            }
+            document.getElementById('pdf-ins').innerText = name;
+            document.getElementById('pdf-date').innerText = formattedDate;
+        }
+
+        function updateTableInline(id) {
+            const isKDat = document.getElementById(`kdat-${id}`).checked;
+            const isDat = document.getElementById(`dat-${id}`).checked;
+            const noteVal = document.getElementById(`note-${id}`).value;
+
+            document.getElementById(`pdf-kdat-check-${id}`).innerHTML = isKDat ? 'X' : '';
+            document.getElementById(`pdf-dat-check-${id}`).innerHTML = isDat ? '✓' : '';
+            document.getElementById(`pdf-note-text-${id}`).innerText = noteVal;
+        }
+
+        function handleMobileImage(event, id) {
+            const container = document.getElementById('preview-' + id);
+            container.innerHTML = '';
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    imageStore[id] = e.target.result;
+                    
+                    const box = document.createElement('div');
+                    box.className = 'img-box';
+                    const img = document.createElement('img');
+                    img.src = e.target.result;
+                    const btn = document.createElement('button');
+                    btn.className = 'btn-del-img';
+                    btn.innerHTML = '×';
+                    btn.onclick = function() {
+                        container.innerHTML = '';
+                        document.getElementById('file-' + id).value = '';
+                        delete imageStore[id];
+                        document.getElementById(`pdf-img-wrap-${id}`).innerHTML = '';
+                    };
+                    box.appendChild(img);
+                    box.appendChild(btn);
+                    container.appendChild(box);
+
+                    document.getElementById(`pdf-img-wrap-${id}`).innerHTML = `
+                        <img src="${e.target.result}" style="max-width:110px; max-height:80px; margin-top:4px; border:0.5px solid #000; display:block;">
+                    `;
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function generateProfessionalPDF() {
+            const rawDate = document.getElementById('main-date').value || 'Bao_Cao';
+            const pdfArea = document.getElementById('pdf-render-area');
+
+            // Cấu hình ngắt dòng thông minh chỉ dựa vào thẻ tr, loại bỏ các hàm tự động tính toán lỗi của css mode diện rộng
+            const opt = {
+                margin:       [15, 12, 15, 12],
+                filename:     'Checklist_Ve_Sinh_' + rawDate + '.pdf',
+                image:        { type: 'jpeg', quality: 0.98 },
+                html2canvas:  { scale: 2, useCORS: true, logging: false, scrollY: 0 },
+                jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' },
+                pagebreak:    { mode: ['avoid-all'] } // Ngăn bẻ đôi chữ/hình ảnh ở giữa các dòng tr cực chuẩn
+            };
+
+            html2pdf().set(opt).from(pdfArea).outputPdf('blob').then((blob) => {
+                const fileUrl = URL.createObjectURL(blob);
+                const downloadLink = document.createElement('a');
+                downloadLink.href = fileUrl;
+                downloadLink.download = 'Checklist_Ve_Sinh_' + rawDate + '.pdf';
+                document.body.appendChild(downloadLink);
+                downloadLink.click();
+                document.body.removeChild(downloadLink);
+                URL.revokeObjectURL(fileUrl);
+            }).catch(err => {
+                console.error(err);
+                alert("Vui lòng xuất file trên trình duyệt Safari hoặc Chrome.");
+            });
+        }
+    </script>
+</body>
+</html>

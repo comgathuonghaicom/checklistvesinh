@@ -633,7 +633,7 @@
                 const fileUrl = URL.createObjectURL(blob);
                 const downloadLink = document.createElement('a');
                 downloadLink.href = fileUrl;
-                downloadLink.download = 'Checklist_Ve_Sinh_' + rawDate + '.pdf';
+                downloadLink.download = 'Checklist_Ve_Sinh_CGTH' + rawDate + '.pdf';
                 document.body.appendChild(downloadLink);
                 downloadLink.click();
                 document.body.removeChild(downloadLink);

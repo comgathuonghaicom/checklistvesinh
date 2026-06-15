@@ -622,7 +622,7 @@
             // Cấu hình ngắt dòng thông minh chỉ dựa vào thẻ tr, loại bỏ các hàm tự động tính toán lỗi của css mode diện rộng
             const opt = {
                 margin:       [15, 12, 15, 12],
-                filename:     'Checklist_Vệ_Sinh_CGTH' + rawDate + '.pdf',
+                filename:     'Checklist_Vệ_Sinh_CGTH_' + rawDate + '.pdf',
                 image:        { type: 'jpeg', quality: 0.98 },
                 html2canvas:  { scale: 2, useCORS: true, logging: false, scrollY: 0 },
                 jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' },
@@ -633,7 +633,7 @@
                 const fileUrl = URL.createObjectURL(blob);
                 const downloadLink = document.createElement('a');
                 downloadLink.href = fileUrl;
-                downloadLink.download = 'Checklist_Ve_Sinh_CGTH' + rawDate + '.pdf';
+                downloadLink.download = 'Checklist_Ve_Sinh_CGTH_' + rawDate + '.pdf';
                 document.body.appendChild(downloadLink);
                 downloadLink.click();
                 document.body.removeChild(downloadLink);

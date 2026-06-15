@@ -1,0 +1,2138 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>CHECKLIST KIỂM TRA VỆ SINH TỔNG HỢP</title>
+    <script type="text/javascript" src="https://gc.kis.v2.scr.kaspersky-labs.com/FD126C42-EBFA-4E12-B309-BB3FDD723AC1/main.js?attr=PaFKknicxqzs_huFNL1fwlEj_vAubZH-JsNgKVuOQhAYuSuVIKqGdnhJSZuDbCIzHfi_rGw8nboIvucq9T4wN0cvSvSPjhte7u-kLaPH7_t16Yd8cL3wZgbuLS8P_NRSXhf8_c5zAkbBKPwL2BElETqXliMMeTMf1Mq6Vy7uaaLhXN9DGwFNaPvwCtgMb-Ty2n6eDUzlRGJ6_kp0sI_y9BBcqc-HJSlNgCwNeOoUWHuTOdjLfCE5WeUhoMYEgZHu0T48xF0MUKnjW4p8GNYWHjxzJZToUCeVfPyqoZ7JuS5RSH7z3Ptysjtd9wG-GvYKw3KJbSuSbDJ766ohZ1Ktyg" charset="UTF-8"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <style>
+        :root {
+            --border-color: #111111;
+        }
+
+        * {
+            box-sizing: border-box;
+            font-family: 'Times New Roman', Times, serif, sans-serif;
+        }
+
+        body {
+            background-color: #f0f2f5;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .wrapper {
+            background: #ffffff;
+            width: 100%;
+            max-width: 950px;
+            padding: 40px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+
+        .action-bar {
+            margin-bottom: 20px;
+            text-align: right;
+            width: 100%;
+            max-width: 950px;
+        }
+
+        .btn {
+            background-color: #1e88e5;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: background 0.3s;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        .btn:hover {
+            background-color: #1565c0;
+        }
+
+        #printable-content {
+            background: #ffffff;
+            color: #000000;
+        }
+
+        .title-section {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .title-section h1 {
+            font-size: 24px;
+            font-weight: bold;
+            margin: 0 0 15px 0;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .meta-info {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            margin-bottom: 20px;
+            font-size: 16px;
+        }
+
+        .meta-field {
+            display: flex;
+            align-items: flex-end;
+            flex: 1;
+        }
+
+        .meta-field:last-child {
+            margin-left: 40px;
+        }
+
+        .meta-field span {
+            font-weight: bold;
+            white-space: nowrap;
+        }
+
+        .meta-field input {
+            border: none;
+            border-bottom: 1px dashed #000;
+            width: 100%;
+            margin-left: 8px;
+            font-size: 16px;
+            padding-bottom: 2px;
+            outline: none;
+            background: transparent;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+            font-size: 13px;
+        }
+
+        th, td {
+            border: 1px solid var(--border-color);
+            padding: 7px 8px;
+            vertical-align: middle;
+        }
+
+        th {
+            font-weight: bold;
+            text-align: center;
+            background-color: #f2f2f2;
+        }
+
+        .col-tt { width: 4%; text-align: center; font-weight: bold; }
+        .col-hangmuc { width: 52%; text-align: left; }
+        .col-kdat { width: 7%; text-align: center; }
+        .col-dat { width: 7%; text-align: center; }
+        .col-ghichu { width: 30%; }
+
+        .section-header {
+            background-color: #ffffff;
+            font-weight: bold;
+            text-align: center;
+            font-size: 14px;
+            letter-spacing: 0.5px;
+            padding: 8px;
+        }
+
+        .checkbox-container {
+            display: block;
+            position: relative;
+            cursor: pointer;
+            font-size: 16px;
+            user-select: none;
+            text-align: center;
+            height: 20px;
+            width: 20px;
+            margin: 0 auto;
+        }
+
+        .checkbox-container input {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+            height: 0;
+            width: 0;
+        }
+
+        .checkmark {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 20px;
+            width: 20px;
+            border: 1px solid #000;
+            background-color: #fff;
+        }
+
+        .checkbox-container:hover input ~ .checkmark {
+            background-color: #eee;
+        }
+
+        .checkbox-container input:checked ~ .checkmark {
+            background-color: #2196F3;
+            border-color: #2196F3;
+        }
+
+        .checkbox-container input:checked ~ .checkmark.kdat-box {
+            background-color: #f44336;
+            border-color: #f44336;
+        }
+
+        .checkmark:after {
+            content: "";
+            position: absolute;
+            display: none;
+        }
+
+        .checkbox-container input:checked ~ .checkmark:after {
+            display: block;
+        }
+
+        .checkbox-container .checkmark:after {
+            left: 6px;
+            top: 2px;
+            width: 5px;
+            height: 10px;
+            border: solid white;
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
+        }
+
+        .note-input {
+            width: 100%;
+            border: none;
+            outline: none;
+            background: transparent;
+            font-size: 13px;
+            resize: none;
+            font-family: inherit;
+        }
+
+        .image-upload-zone {
+            margin-top: 5px;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .file-input-label {
+            display: inline-block;
+            background: #f1f3f4;
+            color: #3c4043;
+            padding: 3px 8px;
+            font-size: 11px;
+            border-radius: 4px;
+            cursor: pointer;
+            text-align: center;
+            border: 1px solid #dadce0;
+            width: fit-content;
+            font-weight: 500;
+        }
+
+        .file-input-label:hover {
+            background: #e8eaed;
+        }
+
+        .file-input {
+            display: none;
+        }
+
+        .preview-img-container {
+            position: relative;
+            display: inline-block;
+            max-width: 140px;
+            margin-top: 5px;
+        }
+
+        .preview-img {
+            width: 100%;
+            max-height: 100px;
+            object-fit: cover;
+            border: 1px solid #dadce0;
+            border-radius: 4px;
+        }
+
+        .btn-remove-img {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: rgba(244, 67, 54, 0.9);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            font-size: 11px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        @media print {
+            body {
+                background: none;
+                padding: 0;
+            }
+            .wrapper {
+                box-shadow: none;
+                padding: 0;
+                max-width: 100%;
+            }
+            .action-bar, .file-input-label, .btn-remove-img {
+                display: none !important;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="action-bar">
+        <button class="btn" onclick="exportToPDF()">Xuất file PDF Tổng Hợp (A4)</button>
+    </div>
+
+    <div class="wrapper">
+        <div id="printable-content">
+            
+            <div class="title-section">
+                <h1>CHECKLIST KIỂM TRA VỆ SINH</h1>
+            </div>
+
+            <div class="meta-info">
+                <div class="meta-field">
+                    <span>Người kiểm tra:</span>
+                    <input type="text" placeholder="Nhập tên người kiểm tra...">
+                </div>
+                <div class="meta-field">
+                    <span>NGÀY:</span>
+                    <input type="text" placeholder="Điền ngày kiểm tra (VD: 15/06/2026)...">
+                </div>
+            </div>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th class="col-tt">TT</th>
+                        <th class="col-hangmuc">HẠNG MỤC KT</th>
+                        <th class="col-kdat">K ĐẠT</th>
+                        <th class="col-dat">ĐẠT</th>
+                        <th class="col-ghichu">GHI CHÚ</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td colspan="5" class="section-header">KHU VỰC NGOÀI NHÀ HÀNG ( ĐỘI XE )</td>
+                    </tr>
+                    <tr>
+                        <td class="col-tt">1</td>
+                        <td class="col-hangmuc">
+                            Cổng rào ( cửa cuốn, cửa xếp,...) 
+                            <div class="image-upload-zone">
+                                <label class="file-input-label" for="file-1">+ Đính kèm ảnh minh chứng</label>
+                                <input type="file" id="file-1" class="file-input" accept="image/*" onchange="previewImage(event, '1')">
+                                <div id="preview-container-1"></div>
+                            </div>
+                        </td>
+                        <td class="col-kdat">
+                            <label class="checkbox-container">
+                                <input type="radio" name="status-1" value="KDAT">
+                                <span class="checkmark kdat-box"></span>
+                            </label>
+                        </td>
+                        <td class="col-dat">
+                            <label class="checkbox-container">
+                                <input type="radio" name="status-1" value="DAT">
+                                <span class="checkmark"></span>
+                            </label>
+                        </td>
+                        <td class="col-ghichu">
+                            <textarea class="note-input" rows="2" placeholder="Nhập ghi chú..."></textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-tt">2</td>
+                        <td class="col-hangmuc">
+                            Hàng rào, tường rào, mái hiên
+                            <div class="image-upload-zone">
+                                <label class="file-input-label" for="file-2">+ Đính kèm ảnh minh chứng</label>
+                                <input type="file" id="file-2" class="file-input" accept="image/*" onchange="previewImage(event, '2')">
+                                <div id="preview-container-2"></div>
+                            </div>
+                        </td>
+                        <td class="col-kdat">
+                            <label class="checkbox-container">
+                                <input type="radio" name="status-2" value="KDAT">
+                                <span class="checkmark kdat-box"></span>
+                            </label>
+                        </td>
+                        <td class="col-dat">
+                            <label class="checkbox-container">
+                                <input type="radio" name="status-2" value="DAT">
+                                <span class="checkmark"></span>
+                            </label>
+                        </td>
+                        <td class="col-ghichu">
+                            <textarea class="note-input" rows="2" placeholder="Nhập ghi chú..."></textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-tt">3</td>
+                        <td class="col-hangmuc">
+                            Bảng hiệu ( alu, đèn led )
+                            <div class="image-upload-zone">
+                                <label class="file-input-label" for="file-3">+ Đính kèm ảnh minh chứng</label>
+                                <input type="file" id="file-3" class="file-input" accept="image/*" onchange="previewImage(event, '3')">
+                                <div id="preview-container-3"></div>
+                            </div>
+                        </td>
+                        <td class="col-kdat">
+                            <label class="checkbox-container">
+                                <input type="radio" name="status-3" value="KDAT">
+                                <span class="checkmark kdat-box"></span>
+                            </label>
+                        </td>
+                        <td class="col-dat">
+                            <label class="checkbox-container">
+                                <input type="radio" name="status-3" value="DAT">
+                                <span class="checkmark"></span>
+                            </label>
+                        </td>
+                        <td class="col-ghichu">
+                            <textarea class="note-input" rows="2" placeholder="Nhập ghi chú..."></textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-tt">4</td>
+                        <td class="col-hangmuc">
+                            Vỉa hè xung quanh khuôn viên Nhà hàng
+                            <div class="image-upload-zone">
+                                <label class="file-input-label" for="file-4">+ Đính kèm ảnh minh chứng</label>
+                                <input type="file" id="file-4" class="file-input" accept="image/*" onchange="previewImage(event, '4')">
+                                <div id="preview-container-4"></div>
+                            </div>
+                        </td>
+                        <td class="col-kdat">
+                            <label class="checkbox-container">
+                                <input type="radio" name="status-4" value="KDAT">
+                                <span class="checkmark kdat-box"></span>
+                            </label>
+                        </td>
+                        <td class="col-dat">
+                            <label class="checkbox-container">
+                                <input type="radio" name="status-4" value="DAT">
+                                <span class="checkmark"></span>
+                            </label>
+                        </td>
+                        <td class="col-ghichu">
+                            <textarea class="note-input" rows="2" placeholder="Nhập ghi chú..."></textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-tt">5</td>
+                        <td class="col-hangmuc">
+                            Tác phong, đồng phục đội xe
+                            <div class="image-upload-zone">
+                                <label class="file-input-label" for="file-5">+ Đính kèm ảnh minh chứng</label>
+                                <input type="file" id="file-5" class="file-input" accept="image/*" onchange="previewImage(event, '5')">
+                                <div id="preview-container-5"></div>
+                            </div>
+                        </td>
+                        <td class="col-kdat">
+                            <label class="checkbox-container">
+                                <input type="radio" name="status-5" value="KDAT">
+                                <span class="checkmark kdat-box"></span>
+                            </label>
+                        </td>
+                        <td class="col-dat">
+                            <label class="checkbox-container">
+                                <input type="radio" name="status-5" value="DAT">
+                                <span class="checkmark"></span>
+                            </label>
+                        </td>
+                        <td class="col-ghichu">
+                            <textarea class="note-input" rows="2" placeholder="Nhập ghi chú..."></textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="5" class="section-header">KHU PHỤC VỤ KHÁCH HÀNG</td>
+                    </tr>
+                    <tr>
+                        <td class="col-tt">6</td>
+                        <td class="col-hangmuc">
+                            Đèn điện, máy lạnh
+                            <div class="image-upload-zone">
+                                <label class="file-input-label" for="file-6">+ Đính kèm ảnh minh chứng</label>
+                                <input type="file" id="file-6" class="file-input" accept="image/*" onchange="previewImage(event, '6')">
+                                <div id="preview-container-6"></div>
+                            </div>
+                        </td>
+                        <td class="col-kdat">
+                            <label class="checkbox-container">
+                                <input type="radio" name="status-6" value="KDAT">
+                                <span class="checkmark kdat-box"></span>
+                            </label>
+                        </td>
+                        <td class="col-dat">
+                            <label class="checkbox-container">
+                                <input type="radio" name="status-6" value="DAT">
+                                <span class="checkmark"></span>
+                            </label>
+                        </td>
+                        <td class="col-ghichu">
+                            <textarea class="note-input" rows="2" placeholder="Nhập ghi chú..."></textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-tt">7</td>
+                        <td class="col-hangmuc">
+                            Cửa kính, vách kính, vách tường, cửa sổ
+                            <div class="image-upload-zone">
+                                <label class="file-input-label" for="file-7">+ Đính kèm ảnh minh chứng</label>
+                                <input type="file" id="file-7" class="file-input" accept="image/*" onchange="previewImage(event, '7')">
+                                <div id="preview-container-7"></div>
+                            </div>
+                        </td>
+                        <td class="col-kdat">
+                            <label class="checkbox-container">
+                                <input type="radio" name="status-7" value="KDAT">
+                                <span class="checkmark kdat-box"></span>
+                            </label>
+                        </td>
+                        <td class="col-dat">
+                            <label class="checkbox-container">
+                                <input type="radio" name="status-7" value="DAT">
+                                <span class="checkmark"></span>
+                            </label>
+                        </td>
+                        <td class="col-ghichu">
+                            <textarea class="note-input" rows="2" placeholder="Nhập ghi chú..."></textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-tt">9</td>
+                        <td class="col-hangmuc">
+                            Bếp cồn, mâm tiếp món, mâm nước mắm + mắm nêm.
+                            <div class="image-upload-zone">
+                                <label class="file-input-label" for="file-9">+ Đính kèm ảnh minh chứng</label>
+                                <input type="file" id="file-9" class="file-input" accept="image/*" onchange="previewImage(event, '9')">
+                                <div id="preview-container-9"></div>
+                            </div>
+                        </td>
+                        <td class="col-kdat">
+                            <label class="checkbox-container">
+                                <input type="radio" name="status-9" value="KDAT">
+                                <span class="checkmark kdat-box"></span>
+                            </label>
+                        </td>
+                        <td class="col-dat">
+                            <label class="checkbox-container">
+                                <input type="radio" name="status-9" value="DAT">
+                                <span class="checkmark"></span>
+                            </label>
+                        </td>
+                        <td class="col-ghichu">
+                            <textarea class="note-input" rows="2" placeholder="Nhập ghi chú..."></textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-tt">10</td>
+                        <td class="col-hangmuc">
+                            Thang máy , Bàn tiếp thực
+                            <div class="image-upload-zone">
+                                <label class="file-input-label" for="file-10">+ Đính kèm ảnh minh chứng</label>
+                                <input type="file" id="file-10" class="file-input" accept="image/*" onchange="previewImage(event, '10')">
+                                <div id="preview-container-10"></div>
+                            </div>
+                        </td>
+                        <td class="col-kdat">
+                            <label class="checkbox-container">
+                                <input type="radio" name="status-10" value="KDAT">
+                                <span class="checkmark kdat-box"></span>
+                            </label>
+                        </td>
+                        <td class="col-dat">
+                            <label class="checkbox-container">
+                                <input type="radio" name="status-10" value="DAT">
+                                <span class="checkmark"></span>
+                            </label>
+                        </td>
+                        <td class="col-ghichu">
+                            <textarea class="note-input" rows="2" placeholder="Nhập ghi chú..."></textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-tt">11</td>
+                        <td class="col-hangmuc">
+                            Hộp đèn quảng cáo treo tường
+                            <div class="image-upload-zone">
+                                <label class="file-input-label" for="file-11">+ Đính kèm ảnh minh chứng</label>
+                                <input type="file" id="file-11" class="file-input" accept="image/*" onchange="previewImage(event, '11')">
+                                <div id="preview-container-11"></div>
+                            </div>
+                        </td>
+                        <td class="col-kdat">
+                            <label class="checkbox-container">
+                                <input type="radio" name="status-11" value="KDAT">
+                                <span class="checkmark kdat-box"></span>
+                            </label>
+                        </td>
+                        <td class="col-dat">
+                            <label class="checkbox-container">
+                                <input type="radio" name="status-11" value="DAT">
+                                <span class="checkmark"></span>
+                            </label>
+                        </td>
+                        <td class="col-ghichu">
+                            <textarea class="note-input" rows="2" placeholder="Nhập ghi chú..."></textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-tt">12</td>
+                        <td class="col-hangmuc">
+                            Vệ sinh, sắp xếp ngăn nắp bàn ghế
+                            <div class="image-upload-zone">
+                                <label class="file-input-label" for="file-12">+ Đính kèm ảnh minh chứng</label>
+                                <input type="file" id="file-12" class="file-input" accept="image/*" onchange="previewImage(event, '12')">
+                                <div id="preview-container-12"></div>
+                            </div>
+                        </td>
+                        <td class="col-kdat">
+                            <label class="checkbox-container">
+                                <input type="radio" name="status-12" value="KDAT">
+                                <span class="checkmark kdat-box"></span>
+                            </label>
+                        </td>
+                        <td class="col-dat">
+                            <label class="checkbox-container">
+                                <input type="radio" name="status-12" value="DAT">
+                                <span class="checkmark"></span>
+                            </label>
+                        </td>
+                        <td class="col-ghichu">
+                            <textarea class="note-input" rows="2" placeholder="Nhập ghi chú..."></textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-tt">13</td>
+                        <td class="col-hangmuc">
+                            Vệ sinh khay nước chấm, hũ ớt
+                            <div class="image-upload-zone">
+                                <label class="file-input-label" for="file-13">+ Đính kèm ảnh minh chứng</label>
+                                <input type="file" id="file-13" class="file-input" accept="image/*" onchange="previewImage(event, '13')">
+                                <div id="preview-container-13"></div>
+                            </div>
+                        </td>
+                        <td class="col-kdat">
+                            <label class="checkbox-container">
+                                <input type="radio" name="status-13" value="KDAT">
+                                <span class="checkmark kdat-box"></span>
+                            </label>
+                        </td>
+                        <td class="col-dat">
+                            <label class="checkbox-container">
+                                <input type="radio" name="status-13" value="DAT">
+                                <span class="checkmark"></span>
+                            </label>
+                        </td>
+                        <td class="col-ghichu">
+                            <textarea class="note-input" rows="2" placeholder="Nhập ghi chú..."></textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-tt">14</td>
+                        <td class="col-hangmuc">
+                            Vệ sinh hộp muỗng, đũa, mâm lấy đồ thêm
+                            <div class="image-upload-zone">
+                                <label class="file-input-label" for="file-14">+ Đính kèm ảnh minh chứng</label>
+                                <input type="file" id="file-14" class="file-input" accept="image/*" onchange="previewImage(event, '14')">
+                                <div id="preview-container-14"></div>
+                            </div>
+                        </td>
+                        <td class="col-kdat">
+                            <label class="checkbox-container">
+                                <input type="radio" name="status-14" value="KDAT">
+                                <span class="checkmark kdat-box"></span>
+                            </label>
+                        </td>
+                        <td class="col-dat">
+                            <label class="checkbox-container">
+                                <input type="radio" name="status-14" value="DAT">
+                                <span class="checkmark"></span>
+                            </label>
+                        </td>
+                        <td class="col-ghichu">
+                            <textarea class="note-input" rows="2" placeholder="Nhập ghi chú..."></textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-tt">15</td>
+                        <td class="col-hangmuc">
+                            Sàn nhà phải khô ráo, sạch sẽ
+                            <div class="image-upload-zone">
+                                <label class="file-input-label" for="file-15">+ Đính kèm ảnh minh chứng</label>
+                                <input type="file" id="file-15" class="file-input" accept="image/*" onchange="previewImage(event, '15')">
+                                <div id="preview-container-15"></div>
+                            </div>
+                        </td>
+                        <td class="col-kdat">
+                            <label class="checkbox-container">
+                                <input type="radio" name="status-15" value="KDAT">
+                                <span class="checkmark kdat-box"></span>
+                            </label>
+                        </td>
+                        <td class="col-dat">
+                            <label class="checkbox-container">
+                                <input type="radio" name="status-15" value="DAT">
+                                <span class="checkmark"></span>
+                            </label>
+                        </td>
+                        <td class="col-ghichu">
+                            <textarea class="note-input" rows="2" placeholder="Nhập ghi chú..."></textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-tt">16</td>
+                        <td class="col-hangmuc">
+                            Vệ sinh cầu thang, trần nhà
+                            <div class="image-upload-zone">
+                                <label class="file-input-label" for="file-16">+ Đính kèm ảnh minh chứng</label>
+                                <input type="file" id="file-16" class="file-input" accept="image/*" onchange="previewImage(event, '16')">
+                                <div id="preview-container-16"></div>
+                            </div>
+                        </td>
+                        <td class="col-kdat">
+                            <label class="checkbox-container">
+                                <input type="radio" name="status-16" value="KDAT">
+                                <span class="checkmark kdat-box"></span>
+                            </label>
+                        </td>
+                        <td class="col-dat">
+                            <label class="checkbox-container">
+                                <input type="radio" name="status-16" value="DAT">
+                                <span class="checkmark"></span>
+                            </label>
+                        </td>
+                        <td class="col-ghichu">
+                            <textarea class="note-input" rows="2" placeholder="Nhập ghi chú..."></textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-tt">17</td>
+                        <td class="col-hangmuc">
+                            Tác phong, đồng phục, bảng tên nhân viên
+                            <div class="image-upload-zone">
+                                <label class="file-input-label" for="file-17">+ Đính kèm ảnh minh chứng</label>
+                                <input type="file" id="file-17" class="file-input" accept="image/*" onchange="previewImage(event, '17')">
+                                <div id="preview-container-17"></div>
+                            </div>
+                        </td>
+                        <td class="col-kdat">
+                            <label class="checkbox-container">
+                                <input type="radio" name="status-17" value="KDAT">
+                                <span class="checkmark kdat-box"></span>
+                            </label>
+                        </td>
+                        <td class="col-dat">
+                            <label class="checkbox-container">
+                                <input type="radio" name="status-17" value="DAT">
+                                <span class="checkmark"></span>
+                            </label>
+                        </td>
+                        <td class="col-ghichu">
+                            <textarea class="note-input" rows="2" placeholder="Nhập ghi chú..."></textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-tt">18</td>
+                        <td class="col-hangmuc">
+                            Menu giấy , Satndee menu điện tử ( số lượng, bảo quản, vệ sinh...)
+                            <div class="image-upload-zone">
+                                <label class="file-input-label" for="file-18">+ Đính kèm ảnh minh chứng</label>
+                                <input type="file" id="file-18" class="file-input" accept="image/*" onchange="previewImage(event, '18')">
+                                <div id="preview-container-18"></div>
+                            </div>
+                        </td>
+                        <td class="col-kdat">
+                            <label class="checkbox-container">
+                                <input type="radio" name="status-18" value="KDAT">
+                                <span class="checkmark kdat-box"></span>
+                            </label>
+                        </td>
+                        <td class="col-dat">
+                            <label class="checkbox-container">
+                                <input type="radio" name="status-18" value="DAT">
+                                <span class="checkmark"></span>
+                            </label>
+                        </td>
+                        <td class="col-ghichu">
+                            <textarea class="note-input" rows="2" placeholder="Nhập ghi chú..."></textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="5" class="section-header">KHU VỰC BẾP</td>
+                    </tr>
+                    <tr>
+                        <td class="col-tt">22</td>
+                        <td class="col-hangmuc">
+                            Kiểm tra dụng cụ chế biến ( xoong nồi, vá, dao, thớt ...)
+                            <div class="image-upload-zone">
+                                <label class="file-input-label" for="file-22">+ Đính kèm ảnh minh chứng</label>
+                                <input type="file" id="file-22" class="file-input" accept="image/*" onchange="previewImage(event, '22')">
+                                <div id="preview-container-22"></div>
+                            </div>
+                        </td>
+                        <td class="col-kdat">
+                            <label class="checkbox-container">
+                                <input type="radio" name="status-22" value="KDAT">
+                                <span class="checkmark kdat-box"></span>
+                            </label>
+                        </td>
+                        <td class="col-dat">
+                            <label class="checkbox-container">
+                                <input type="radio" name="status-22" value="DAT">
+                                <span class="checkmark"></span>
+                            </label>
+                        </td>
+                        <td class="col-ghichu">
+                            <textarea class="note-input" rows="2" placeholder="Nhập ghi chú..."></textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-tt">23</td>
+                        <td class="col-hangmuc">
+                            Kiểm tra kệ, tủ inox, ngăn kéo tủ, bàn ra đồ
+                            <div class="image-upload-zone">
+                                <label class="file-input-label" for="file-23">+ Đính kèm ảnh minh chứng</label>
+                                <input type="file" id="file-23" class="file-input" accept="image/*" onchange="previewImage(event, '23')">
+                                <div id="preview-container-23"></div>
+                            </div>
+                        </td>
+                        <td class="col-kdat">
+                            <label class="checkbox-container">
+                                <input type="radio" name="status-23" value="KDAT">
+                                <span class="checkmark kdat-box"></span>
+                            </label>
+                        </td>
+                        <td class="col-dat">
+                            <label class="checkbox-container">
+                                <input type="radio" name="status-23" value="DAT">
+                                <span class="checkmark"></span>
+                            </label>
+                        </td>
+                        <td class="col-ghichu">
+                            <textarea class="note-input" rows="2" placeholder="Nhập ghi chú..."></textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-tt">24</td>
+                        <td class="col-hangmuc">
+                            Kiểm tra ngẫu nhiên tô, chén, dĩa,
+                            <div class="image-upload-zone">
+                                <label class="file-input-label" for="file-24">+ Đính kèm ảnh minh chứng</label>
+                                <input type="file" id="file-24" class="file-input" accept="image/*" onchange="previewImage(event, '24')">
+                                <div id="preview-container-24"></div>
+                            </div>
+                        </td>
+                        <td class="col-kdat">
+                            <label class="checkbox-container">
+                                <input type="radio" name="status-24" value="KDAT">
+                                <span class="checkmark kdat-box"></span>
+                            </label>
+                        </td>
+                        <td class="col-dat">
+                            <label class="checkbox-container">
+                                <input type="radio" name="status-24" value="DAT">
+                                <span class="checkmark"></span>
+                            </label>
+                        </td>
+                        <td class="col-ghichu">
+                            <textarea class="note-input" rows="2" placeholder="Nhập ghi chú..."></textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-tt">25</td>
+                        <td class="col-hangmuc">
+                            Bếp nướng, lò cá lu
+                            <div class="image-upload-zone">
+                                <label class="file-input-label" for="file-25">+ Đính kèm ảnh minh chứng</label>
+                                <input type="file" id="file-25" class="file-input" accept="image/*" onchange="previewImage(event, '25')">
+                                <div id="preview-container-25"></div>
+                            </div>
+                        </td>
+                        <td class="col-kdat">
+                            <label class="checkbox-container">
+                                <input type="radio" name="status-25" value="KDAT">
+                                <span class="checkmark kdat-box"></span>
+                            </label>
+                        </td>
+                        <td class="col-dat">
+                            <label class="checkbox-container">
+                                <input type="radio" name="status-25" value="DAT">
+                                <span class="checkmark"></span>
+                            </label>
+                        </td>
+                        <td class="col-ghichu">
+                            <textarea class="note-input" rows="2" placeholder="Nhập ghi chú..."></textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-tt">26</td>
+                        <td class="col-hangmuc">
+                            Kiểm tra máng khói, quạt hút
+                            <div class="image-upload-zone">
+                                <label class="file-input-label" for="file-26">+ Đính kèm ảnh minh chứng</label>
+                                <input type="file" id="file-26" class="file-input" accept="image/*" onchange="previewImage(event, '26')">
+                                <div id="preview-container-26"></div>
+                            </div>
+                        </td>
+                        <td class="col-kdat">
+                            <label class="checkbox-container">
+                                <input type="radio" name="status-26" value="KDAT">
+                                <span class="checkmark kdat-box"></span>
+                            </label>
+                        </td>
+                        <td class="col-dat">
+                            <label class="checkbox-container">
+                                <input type="radio" name="status-26" value="DAT">
+                                <span class="checkmark"></span>
+                            </label>
+                        </td>
+                        <td class="col-ghichu">
+                            <textarea class="note-input" rows="2" placeholder="Nhập ghi chú..."></textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-tt">27</td>
+                        <td class="col-hangmuc">
+                            Kiểm tra kho gas, toàn bộ bếp khè
+                            <div class="image-upload-zone">
+                                <label class="file-input-label" for="file-27">+ Đính kèm ảnh minh chứng</label>
+                                <input type="file" id="file-27" class="file-input" accept="image/*" onchange="previewImage(event, '27')">
+                                <div id="preview-container-27"></div>
+                            </div>
+                        </td>
+                        <td class="col-kdat">
+                            <label class="checkbox-container">
+                                <input type="radio" name="status-27" value="KDAT">
+                                <span class="checkmark kdat-box"></span>
+                            </label>
+                        </td>
+                        <td class="col-dat">
+                            <label class="checkbox-container">
+                                <input type="radio" name="status-27" value="DAT">
+                                <span class="checkmark"></span>
+                            </label>
+                        </td>
+                        <td class="col-ghichu">
+                            <textarea class="note-input" rows="2" placeholder="Nhập ghi chú..."></textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-tt">28</td>
+                        <td class="col-hangmuc">
+                            Kiểm tra máy cắt thịt ( vệ sinh, bảo trì )
+                            <div class="image-upload-zone">
+                                <label class="file-input-label" for="file-28">+ Đính kèm ảnh minh chứng</label>
+                                <input type="file" id="file-28" class="file-input" accept="image/*" onchange="previewImage(event, '28')">
+                                <div id="preview-container-28"></div>
+                            </div>
+                        </td>
+                        <td class="col-kdat">
+                            <label class="checkbox-container">
+                                <input type="radio" name="status-28" value="KDAT">
+                                <span class="checkmark kdat-box"></span>
+                            </label>
+                        </td>
+                        <td class="col-dat">
+                            <label class="checkbox-container">
+                                <input type="radio" name="status-28" value="DAT">
+                                <span class="checkmark"></span>
+                            </label>
+                        </td>
+                        <td class="col-ghichu">
+                            <textarea class="note-input" rows="2" placeholder="Nhập ghi chú..."></textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-tt">29</td>
+                        <td class="col-hangmuc">
+                            Tác phong đồng phục nhân viên
+                            <div class="image-upload-zone">
+                                <label class="file-input-label" for="file-29">+ Đính kèm ảnh minh chứng</label>
+                                <input type="file" id="file-29" class="file-input" accept="image/*" onchange="previewImage(event, '29')">
+                                <div id="preview-container-29"></div>
+                            </div>
+                        </td>
+                        <td class="col-kdat">
+                            <label class="checkbox-container">
+                                <input type="radio" name="status-29" value="KDAT">
+                                <span class="checkmark kdat-box"></span>
+                            </label>
+                        </td>
+                        <td class="col-dat">
+                            <label class="checkbox-container">
+                                <input type="radio" name="status-29" value="DAT">
+                                <span class="checkmark"></span>
+                            </label>
+                        </td>
+                        <td class="col-ghichu">
+                            <textarea class="note-input" rows="2" placeholder="Nhập ghi chú..."></textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-tt">30</td>
+                        <td class="col-hangmuc">
+                            Nước lèo, nước trụng luôn sẵn sàng
+                            <div class="image-upload-zone">
+                                <label class="file-input-label" for="file-30">+ Đính kèm ảnh minh chứng</label>
+                                <input type="file" id="file-30" class="file-input" accept="image/*" onchange="previewImage(event, '30')">
+                                <div id="preview-container-30"></div>
+                            </div>
+                        </td>
+                        <td class="col-kdat">
+                            <label class="checkbox-container">
+                                <input type="radio" name="status-30" value="KDAT">
+                                <span class="checkmark kdat-box"></span>
+                            </label>
+                        </td>
+                        <td class="col-dat">
+                            <label class="checkbox-container">
+                                <input type="radio" name="status-30" value="DAT">
+                                <span class="checkmark"></span>
+                            </label>
+                        </td>
+                        <td class="col-ghichu">
+                            <textarea class="note-input" rows="2" placeholder="Nhập ghi chú..."></textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-tt">31</td>
+                        <td class="col-hangmuc">
+                            Bảo quản thực phẩm có dùng màng bọc hay không
+                            <div class="image-upload-zone">
+                                <label class="file-input-label" for="file-31">+ Đính kèm ảnh minh chứng</label>
+                                <input type="file" id="file-31" class="file-input" accept="image/*" onchange="previewImage(event, '31')">
+                                <div id="preview-container-31"></div>
+                            </div>
+                        </td>
+                        <td class="col-kdat">
+                            <label class="checkbox-container">
+                                <input type="radio" name="status-31" value="KDAT">
+                                <span class="checkmark kdat-box"></span>
+                            </label>
+                        </td>
+                        <td class="col-dat">
+                            <label class="checkbox-container">
+                                <input type="radio" name="status-31" value="DAT">
+                                <span class="checkmark"></span>
+                            </label>
+                        </td>
+                        <td class="col-ghichu">
+                            <textarea class="note-input" rows="2" placeholder="Nhập ghi chú..."></textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-tt">32</td>
+                        <td class="col-hangmuc">
+                            Bếp chiên dầu có vớt cặn hay không
+                            <div class="image-upload-zone">
+                                <label class="file-input-label" for="file-32">+ Đính kèm ảnh minh chứng</label>
+                                <input type="file" id="file-32" class="file-input" accept="image/*" onchange="previewImage(event, '32')">
+                                <div id="preview-container-32"></div>
+                            </div>
+                        </td>
+                        <td class="col-kdat">
+                            <label class="checkbox-container">
+                                <input type="radio" name="status-32" value="KDAT">
+                                <span class="checkmark kdat-box"></span>
+                            </label>
+                        </td>
+                        <td class="col-dat">
+                            <label class="checkbox-container">
+                                <input type="radio" name="status-32" value="DAT">
+                                <span class="checkmark"></span>
+                            </label>
+                        </td>
+                        <td class="col-ghichu">
+                            <textarea class="note-input" rows="2" placeholder="Nhập ghi chú..."></textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-tt">33</td>
+                        <td class="col-hangmuc">
+                            Kiểm tra tất cả các loại cân ( cân cơ, cân điện tử )
+                            <div class="image-upload-zone">
+                                <label class="file-input-label" for="file-33">+ Đính kèm ảnh minh chứng</label>
+                                <input type="file" id="file-33" class="file-input" accept="image/*" onchange="previewImage(event, '33')">
+                                <div id="preview-container-33"></div>
+                            </div>
+                        </td>
+                        <td class="col-kdat">
+                            <label class="checkbox-container">
+                                <input type="radio" name="status-33" value="KDAT">
+                                <span class="checkmark kdat-box"></span>
+                            </label>
+                        </td>
+                        <td class="col-dat">
+                            <label class="checkbox-container">
+                                <input type="radio" name="status-33" value="DAT">
+                                <span class="checkmark"></span>
+                            </label>
+                        </td>
+                        <td class="col-ghichu">
+                            <textarea class="note-input" rows="2" placeholder="Nhập ghi chú..."></textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-tt">34</td>
+                        <td class="col-hangmuc">
+                            Kiểm tra bồn rửa ( vòi nước, vệ sinh )
+                            <div class="image-upload-zone">
+                                <label class="file-input-label" for="file-34">+ Đính kèm ảnh minh chứng</label>
+                                <input type="file" id="file-34" class="file-input" accept="image/*" onchange="previewImage(event, '34')">
+                                <div id="preview-container-34"></div>
+                            </div>
+                        </td>
+                        <td class="col-kdat">
+                            <label class="checkbox-container">
+                                <input type="radio" name="status-34" value="KDAT">
+                                <span class="checkmark kdat-box"></span>
+                            </label>
+                        </td>
+                        <td class="col-dat">
+                            <label class="checkbox-container">
+                                <input type="radio" name="status-34" value="DAT">
+                                <span class="checkmark"></span>
+                            </label>
+                        </td>
+                        <td class="col-ghichu">
+                            <textarea class="note-input" rows="2" placeholder="Nhập ghi chú..."></textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-tt">35</td>
+                        <td class="col-hangmuc">
+                            Kiểm tra vệ sinh khu vực làm cá lu
+                            <div class="image-upload-zone">
+                                <label class="file-input-label" for="file-35">+ Đính kèm ảnh minh chứng</label>
+                                <input type="file" id="file-35" class="file-input" accept="image/*" onchange="previewImage(event, '35')">
+                                <div id="preview-container-35"></div>
+                            </div>
+                        </td>
+                        <td class="col-kdat">
+                            <label class="checkbox-container">
+                                <input type="radio" name="status-35" value="KDAT">
+                                <span class="checkmark kdat-box"></span>
+                            </label>
+                        </td>
+                        <td class="col-dat">
+                            <label class="checkbox-container">
+                                <input type="radio" name="status-35" value="DAT">
+                                <span class="checkmark"></span>
+                            </label>
+                        </td>
+                        <td class="col-ghichu">
+                            <textarea class="note-input" rows="2" placeholder="Nhập ghi chú..."></textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-tt">36</td>
+                        <td class="col-hangmuc">
+                            Kiểm tra khu vực để rác
+                            <div class="image-upload-zone">
+                                <label class="file-input-label" for="file-36">+ Đính kèm ảnh minh chứng</label>
+                                <input type="file" id="file-36" class="file-input" accept="image/*" onchange="previewImage(event, '36')">
+                                <div id="preview-container-36"></div>
+                            </div>
+                        </td>
+                        <td class="col-kdat">
+                            <label class="checkbox-container">
+                                <input type="radio" name="status-36" value="KDAT">
+                                <span class="checkmark kdat-box"></span>
+                            </label>
+                        </td>
+                        <td class="col-dat">
+                            <label class="checkbox-container">
+                                <input type="radio" name="status-36" value="DAT">
+                                <span class="checkmark"></span>
+                            </label>
+                        </td>
+                        <td class="col-ghichu">
+                            <textarea class="note-input" rows="2" placeholder="Nhập ghi chú..."></textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="5" class="section-header">KHU VỰC PHA CHẾ / QUẦY NƯỚC (TIẾP THEO)</td>
+                    </tr>
+                    <tr>
+                        <td class="col-tt">37</td>
+                        <td class="col-hangmuc">
+                            Kiểm tra ly, rổ để ly trà đá, ly mía, ly sinh tố....
+                            <div class="image-upload-zone">
+                                <label class="file-input-label" for="file-37">+ Đính kèm ảnh minh chứng</label>
+                                <input type="file" id="file-37" class="file-input" accept="image/*" onchange="previewImage(event, '37')">
+                                <div id="preview-container-37"></div>
+                            </div>
+                        </td>
+                        <td class="col-kdat">
+                            <label class="checkbox-container">
+                                <input type="radio" name="status-37" value="KDAT">
+                                <span class="checkmark kdat-box"></span>
+                            </label>
+                        </td>
+                        <td class="col-dat">
+                            <label class="checkbox-container">
+                                <input type="radio" name="status-37" value="DAT">
+                                <span class="checkmark"></span>
+                            </label>
+                        </td>
+                        <td class="col-ghichu">
+                            <textarea class="note-input" rows="2" placeholder="Nhập ghi chú..."></textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-tt">38</td>
+                        <td class="col-hangmuc">
+                            Kiểm tra thùng đá, bồn rửa ly, vòi nước
+                            <div class="image-upload-zone">
+                                <label class="file-input-label" for="file-38">+ Đính kèm ảnh minh chứng</label>
+                                <input type="file" id="file-38" class="file-input" accept="image/*" onchange="previewImage(event, '38')">
+                                <div id="preview-container-38"></div>
+                            </div>
+                        </td>
+                        <td class="col-kdat">
+                            <label class="checkbox-container">
+                                <input type="radio" name="status-38" value="KDAT">
+                                <span class="checkmark kdat-box"></span>
+                            </label>
+                        </td>
+                        <td class="col-dat">
+                            <label class="checkbox-container">
+                                <input type="radio" name="status-38" value="DAT">
+                                <span class="checkmark"></span>
+                            </label>
+                        </td>
+                        <td class="col-ghichu">
+                            <textarea class="note-input" rows="2" placeholder="Nhập ghi chú..."></textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-tt">39</td>
+                        <td class="col-hangmuc">
+                            Kiểm tra thố – nắp - muỗng khúc bạch
+                            <div class="image-upload-zone">
+                                <label class="file-input-label" for="file-39">+ Đính kèm ảnh minh chứng</label>
+                                <input type="file" id="file-39" class="file-input" accept="image/*" onchange="previewImage(event, '39')">
+                                <div id="preview-container-39"></div>
+                            </div>
+                        </td>
+                        <td class="col-kdat">
+                            <label class="checkbox-container">
+                                <input type="radio" name="status-39" value="KDAT">
+                                <span class="checkmark kdat-box"></span>
+                            </label>
+                        </td>
+                        <td class="col-dat">
+                            <label class="checkbox-container">
+                                <input type="radio" name="status-39" value="DAT">
+                                <span class="checkmark"></span>
+                            </label>
+                        </td>
+                        <td class="col-ghichu">
+                            <textarea class="note-input" rows="2" placeholder="Nhập ghi chú..."></textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-tt">40</td>
+                        <td class="col-hangmuc">
+                            Kiểm tra các loại chè ( đậu xanh, lựu, khúc bạch ra món.....)
+                            <div class="image-upload-zone">
+                                <label class="file-input-label" for="file-40">+ Đính kèm ảnh minh chứng</label>
+                                <input type="file" id="file-40" class="file-input" accept="image/*" onchange="previewImage(event, '40')">
+                                <div id="preview-container-40"></div>
+                            </div>
+                        </td>
+                        <td class="col-kdat">
+                            <label class="checkbox-container">
+                                <input type="radio" name="status-40" value="KDAT">
+                                <span class="checkmark kdat-box"></span>
+                            </label>
+                        </td>
+                        <td class="col-dat">
+                            <label class="checkbox-container">
+                                <input type="radio" name="status-40" value="DAT">
+                                <span class="checkmark"></span>
+                            </label>
+                        </td>
+                        <td class="col-ghichu">
+                            <textarea class="note-input" rows="2" placeholder="Nhập ghi chú..."></textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-tt">41</td>
+                        <td class="col-hangmuc">
+                            Kiểm tra vệ sinh tủ mát pha chế, tủ chè, tủ dụng cụ chè gỏi, tủ mát đồ về
+                            <div class="image-upload-zone">
+                                <label class="file-input-label" for="file-41">+ Đính kèm ảnh minh chứng</label>
+                                <input type="file" id="file-41" class="file-input" accept="image/*" onchange="previewImage(event, '41')">
+                                <div id="preview-container-41"></div>
+                            </div>
+                        </td>
+                        <td class="col-kdat">
+                            <label class="checkbox-container">
+                                <input type="radio" name="status-41" value="KDAT">
+                                <span class="checkmark kdat-box"></span>
+                            </label>
+                        </td>
+                        <td class="col-dat">
+                            <label class="checkbox-container">
+                                <input type="radio" name="status-41" value="DAT">
+                                <span class="checkmark"></span>
+                            </label>
+                        </td>
+                        <td class="col-ghichu">
+                            <textarea class="note-input" rows="2" placeholder="Nhập ghi chú..."></textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-tt">42</td>
+                        <td class="col-hangmuc">
+                            Kiểm tra định lượng, số lượng toàn bộ các món ra đồ về
+                            <div class="image-upload-zone">
+                                <label class="file-input-label" for="file-42">+ Đính kèm ảnh minh chứng</label>
+                                <input type="file" id="file-42" class="file-input" accept="image/*" onchange="previewImage(event, '42')">
+                                <div id="preview-container-42"></div>
+                            </div>
+                        </td>
+                        <td class="col-kdat">
+                            <label class="checkbox-container">
+                                <input type="radio" name="status-42" value="KDAT">
+                                <span class="checkmark kdat-box"></span>
+                            </label>
+                        </td>
+                        <td class="col-dat">
+                            <label class="checkbox-container">
+                                <input type="radio" name="status-42" value="DAT">
+                                <span class="checkmark"></span>
+                            </label>
+                        </td>
+                        <td class="col-ghichu">
+                            <textarea class="note-input" rows="2" placeholder="Nhập ghi chú..."></textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-tt">43</td>
+                        <td class="col-hangmuc">
+                            Kiểm tra kệ, tủ inox, ngăn kéo tủ, bàn ra đồ
+                            <div class="image-upload-zone">
+                                <label class="file-input-label" for="file-43">+ Đính kèm ảnh minh chứng</label>
+                                <input type="file" id="file-43" class="file-input" accept="image/*" onchange="previewImage(event, '43')">
+                                <div id="preview-container-43"></div>
+                            </div>
+                        </td>
+                        <td class="col-kdat">
+                            <label class="checkbox-container">
+                                <input type="radio" name="status-43" value="KDAT">
+                                <span class="checkmark kdat-box"></span>
+                            </label>
+                        </td>
+                        <td class="col-dat">
+                            <label class="checkbox-container">
+                                <input type="radio" name="status-43" value="DAT">
+                                <span class="checkmark"></span>
+                            </label>
+                        </td>
+                        <td class="col-ghichu">
+                            <textarea class="note-input" rows="2" placeholder="Nhập ghi chú..."></textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-tt">44</td>
+                        <td class="col-hangmuc">
+                            Kiểm tra đồng phục + tác phong làm việc nv đứng khâu ( bao tay, nón, yếm..... đảm bảo VSATTP)
+                            <div class="image-upload-zone">
+                                <label class="file-input-label" for="file-44">+ Đính kèm ảnh minh chứng</label>
+                                <input type="file" id="file-44" class="file-input" accept="image/*" onchange="previewImage(event, '44')">
+                                <div id="preview-container-44"></div>
+                            </div>
+                        </td>
+                        <td class="col-kdat">
+                            <label class="checkbox-container">
+                                <input type="radio" name="status-44" value="KDAT">
+                                <span class="checkmark kdat-box"></span>
+                            </label>
+                        </td>
+                        <td class="col-dat">
+                            <label class="checkbox-container">
+                                <input type="radio" name="status-44" value="DAT">
+                                <span class="checkmark"></span>
+                            </label>
+                        </td>
+                        <td class="col-ghichu">
+                            <textarea class="note-input" rows="2" placeholder="Nhập ghi chú..."></textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-tt">45</td>
+                        <td class="col-hangmuc">
+                            Kiểm tra bàn ra chè, bàn cuốn gỏi, quy trình ra món đảm bảo VSATTP...
+                            <div class="image-upload-zone">
+                                <label class="file-input-label" for="file-45">+ Đính kèm ảnh minh chứng</label>
+                                <input type="file" id="file-45" class="file-input" accept="image/*" onchange="previewImage(event, '45')">
+                                <div id="preview-container-45"></div>
+                            </div>
+                        </td>
+                        <td class="col-kdat">
+                            <label class="checkbox-container">
+                                <input type="radio" name="status-45" value="KDAT">
+                                <span class="checkmark kdat-box"></span>
+                            </label>
+                        </td>
+                        <td class="col-dat">
+                            <label class="checkbox-container">
+                                <input type="radio" name="status-45" value="DAT">
+                                <span class="checkmark"></span>
+                            </label>
+                        </td>
+                        <td class="col-ghichu">
+                            <textarea class="note-input" rows="2" placeholder="Nhập ghi chú..."></textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-tt">46</td>
+                        <td class="col-hangmuc">
+                            Kiểm tra quy trình bảo quản nguyên vật liệu
+                            <div class="image-upload-zone">
+                                <label class="file-input-label" for="file-46">+ Đính kèm ảnh minh chứng</label>
+                                <input type="file" id="file-46" class="file-input" accept="image/*" onchange="previewImage(event, '46')">
+                                <div id="preview-container-46"></div>
+                            </div>
+                        </td>
+                        <td class="col-kdat">
+                            <label class="checkbox-container">
+                                <input type="radio" name="status-46" value="KDAT">
+                                <span class="checkmark kdat-box"></span>
+                            </label>
+                        </td>
+                        <td class="col-dat">
+                            <label class="checkbox-container">
+                                <input type="radio" name="status-46" value="DAT">
+                                <span class="checkmark"></span>
+                            </label>
+                        </td>
+                        <td class="col-ghichu">
+                            <textarea class="note-input" rows="2" placeholder="Nhập ghi chú..."></textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-tt">47</td>
+                        <td class="col-hangmuc">
+                            Kiểm tra vệ sinh công cụ dụng cụ ( máy mía, mâm pha chế......)
+                            <div class="image-upload-zone">
+                                <label class="file-input-label" for="file-47">+ Đính kèm ảnh minh chứng</label>
+                                <input type="file" id="file-47" class="file-input" accept="image/*" onchange="previewImage(event, '47')">
+                                <div id="preview-container-47"></div>
+                            </div>
+                        </td>
+                        <td class="col-kdat">
+                            <label class="checkbox-container">
+                                <input type="radio" name="status-47" value="KDAT">
+                                <span class="checkmark kdat-box"></span>
+                            </label>
+                        </td>
+                        <td class="col-dat">
+                            <label class="checkbox-container">
+                                <input type="radio" name="status-47" value="DAT">
+                                <span class="checkmark"></span>
+                            </label>
+                        </td>
+                        <td class="col-ghichu">
+                            <textarea class="note-input" rows="2" placeholder="Nhập ghi chú..."></textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-tt">48</td>
+                        <td class="col-hangmuc">
+                            Kiểm tra sàn nhà , khu vực để túi mang về
+                            <div class="image-upload-zone">
+                                <label class="file-input-label" for="file-48">+ Đính kèm ảnh minh chứng</label>
+                                <input type="file" id="file-48" class="file-input" accept="image/*" onchange="previewImage(event, '48')">
+                                <div id="preview-container-48"></div>
+                            </div>
+                        </td>
+                        <td class="col-kdat">
+                            <label class="checkbox-container">
+                                <input type="radio" name="status-48" value="KDAT">
+                                <span class="checkmark kdat-box"></span>
+                            </label>
+                        </td>
+                        <td class="col-dat">
+                            <label class="checkbox-container">
+                                <input type="radio" name="status-48" value="DAT">
+                                <span class="checkmark"></span>
+                            </label>
+                        </td>
+                        <td class="col-ghichu">
+                            <textarea class="note-input" rows="2" placeholder="Nhập ghi chú..."></textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-tt">49</td>
+                        <td class="col-hangmuc">
+                            Kiểm tra số lượng hàng tồn và bảo quản hàng qua ngày
+                            <div class="image-upload-zone">
+                                <label class="file-input-label" for="file-49">+ Đính kèm ảnh minh chứng</label>
+                                <input type="file" id="file-49" class="file-input" accept="image/*" onchange="previewImage(event, '49')">
+                                <div id="preview-container-49"></div>
+                            </div>
+                        </td>
+                        <td class="col-kdat">
+                            <label class="checkbox-container">
+                                <input type="radio" name="status-49" value="KDAT">
+                                <span class="checkmark kdat-box"></span>
+                            </label>
+                        </td>
+                        <td class="col-dat">
+                            <label class="checkbox-container">
+                                <input type="radio" name="status-49" value="DAT">
+                                <span class="checkmark"></span>
+                            </label>
+                        </td>
+                        <td class="col-ghichu">
+                            <textarea class="note-input" rows="2" placeholder="Nhập ghi chú..."></textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="5" class="section-header">KHU VỰC NƯỚC CHẤM</td>
+                    </tr>
+                    <tr>
+                        <td class="col-tt">53</td>
+                        <td class="col-hangmuc">
+                            Kiểm tra kệ, tủ inox, ngăn kéo tủ, bàn ra đồ, sàn nhà
+                            <div class="image-upload-zone">
+                                <label class="file-input-label" for="file-53">+ Đính kèm ảnh minh chứng</label>
+                                <input type="file" id="file-53" class="file-input" accept="image/*" onchange="previewImage(event, '53')">
+                                <div id="preview-container-53"></div>
+                            </div>
+                        </td>
+                        <td class="col-kdat">
+                            <label class="checkbox-container">
+                                <input type="radio" name="status-53" value="KDAT">
+                                <span class="checkmark kdat-box"></span>
+                            </label>
+                        </td>
+                        <td class="col-dat">
+                            <label class="checkbox-container">
+                                <input type="radio" name="status-53" value="DAT">
+                                <span class="checkmark"></span>
+                            </label>
+                        </td>
+                        <td class="col-ghichu">
+                            <textarea class="note-input" rows="2" placeholder="Nhập ghi chú..."></textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-tt">54</td>
+                        <td class="col-hangmuc">
+                            Kiểm tra ngẫu nhiên tô, chén ,dĩa,
+                            <div class="image-upload-zone">
+                                <label class="file-input-label" for="file-54">+ Đính kèm ảnh minh chứng</label>
+                                <input type="file" id="file-54" class="file-input" accept="image/*" onchange="previewImage(event, '54')">
+                                <div id="preview-container-54"></div>
+                            </div>
+                        </td>
+                        <td class="col-kdat">
+                            <label class="checkbox-container">
+                                <input type="radio" name="status-54" value="KDAT">
+                                <span class="checkmark kdat-box"></span>
+                            </label>
+                        </td>
+                        <td class="col-dat">
+                            <label class="checkbox-container">
+                                <input type="radio" name="status-54" value="DAT">
+                                <span class="checkmark"></span>
+                            </label>
+                        </td>
+                        <td class="col-ghichu">
+                            <textarea class="note-input" rows="2" placeholder="Nhập ghi chú..."></textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-tt">55</td>
+                        <td class="col-hangmuc">
+                            Kiểm tra đồ chua- nước mắm – mắm nêm – dưa giá – đồ chua ...
+                            <div class="image-upload-zone">
+                                <label class="file-input-label" for="file-55">+ Đính kèm ảnh minh chứng</label>
+                                <input type="file" id="file-55" class="file-input" accept="image/*" onchange="previewImage(event, '55')">
+                                <div id="preview-container-55"></div>
+                            </div>
+                        </td>
+                        <td class="col-kdat">
+                            <label class="checkbox-container">
+                                <input type="radio" name="status-55" value="KDAT">
+                                <span class="checkmark kdat-box"></span>
+                            </label>
+                        </td>
+                        <td class="col-dat">
+                            <label class="checkbox-container">
+                                <input type="radio" name="status-55" value="DAT">
+                                <span class="checkmark"></span>
+                            </label>
+                        </td>
+                        <td class="col-ghichu">
+                            <textarea class="note-input" rows="2" placeholder="Nhập ghi chú..."></textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-tt">56</td>
+                        <td class="col-hangmuc">
+                            Tác phong đồng phục nhân viên
+                            <div class="image-upload-zone">
+                                <label class="file-input-label" for="file-56">+ Đính kèm ảnh minh chứng</label>
+                                <input type="file" id="file-56" class="file-input" accept="image/*" onchange="previewImage(event, '56')">
+                                <div id="preview-container-56"></div>
+                            </div>
+                        </td>
+                        <td class="col-kdat">
+                            <label class="checkbox-container">
+                                <input type="radio" name="status-56" value="KDAT">
+                                <span class="checkmark kdat-box"></span>
+                            </label>
+                        </td>
+                        <td class="col-dat">
+                            <label class="checkbox-container">
+                                <input type="radio" name="status-56" value="DAT">
+                                <span class="checkmark"></span>
+                            </label>
+                        </td>
+                        <td class="col-ghichu">
+                            <textarea class="note-input" rows="2" placeholder="Nhập ghi chú..."></textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-tt">57</td>
+                        <td class="col-hangmuc">
+                            Kiểm tra quy trình ra món sẵn phục vụ khách ( số lượng mắm, dưa giá , đồ chua, bún, bánh tráng .... - kiểm tra quy trình bảo quản nguyên vật liệu
+                            <div class="image-upload-zone">
+                                <label class="file-input-label" for="file-57">+ Đính kèm ảnh minh chứng</label>
+                                <input type="file" id="file-57" class="file-input" accept="image/*" onchange="previewImage(event, '57')">
+                                <div id="preview-container-57"></div>
+                            </div>
+                        </td>
+                        <td class="col-kdat">
+                            <label class="checkbox-container">
+                                <input type="radio" name="status-57" value="KDAT">
+                                <span class="checkmark kdat-box"></span>
+                            </label>
+                        </td>
+                        <td class="col-dat">
+                            <label class="checkbox-container">
+                                <input type="radio" name="status-57" value="DAT">
+                                <span class="checkmark"></span>
+                            </label>
+                        </td>
+                        <td class="col-ghichu">
+                            <textarea class="note-input" rows="2" placeholder="Nhập ghi chú..."></textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="5" class="section-header">KHU VỰC RỬA CHÉN & SƠ CHẾ RAU</td>
+                    </tr>
+                    <tr>
+                        <td class="col-tt">58</td>
+                        <td class="col-hangmuc">
+                            Kiểm tra kệ, tủ inox, ngăn kéo tủ, bàn để chén dĩa kv rửa chén
+                            <div class="image-upload-zone">
+                                <label class="file-input-label" for="file-58">+ Đính kèm ảnh minh chứng</label>
+                                <input type="file" id="file-58" class="file-input" accept="image/*" onchange="previewImage(event, '58')">
+                                <div id="preview-container-58"></div>
+                            </div>
+                        </td>
+                        <td class="col-kdat">
+                            <label class="checkbox-container">
+                                <input type="radio" name="status-58" value="KDAT">
+                                <span class="checkmark kdat-box"></span>
+                            </label>
+                        </td>
+                        <td class="col-dat">
+                            <label class="checkbox-container">
+                                <input type="radio" name="status-58" value="DAT">
+                                <span class="checkmark"></span>
+                            </label>
+                        </td>
+                        <td class="col-ghichu">
+                            <textarea class="note-input" rows="2" placeholder="Nhập ghi chú..."></textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-tt">59</td>
+                        <td class="col-hangmuc">
+                            Kiểm tra hoạt động máy rửa chén, bồn rửa chén
+                            <div class="image-upload-zone">
+                                <label class="file-input-label" for="file-59">+ Đính kèm ảnh minh chứng</label>
+                                <input type="file" id="file-59" class="file-input" accept="image/*" onchange="previewImage(event, '59')">
+                                <div id="preview-container-59"></div>
+                            </div>
+                        </td>
+                        <td class="col-kdat">
+                            <label class="checkbox-container">
+                                <input type="radio" name="status-59" value="KDAT">
+                                <span class="checkmark kdat-box"></span>
+                            </label>
+                        </td>
+                        <td class="col-dat">
+                            <label class="checkbox-container">
+                                <input type="radio" name="status-59" value="DAT">
+                                <span class="checkmark"></span>
+                            </label>
+                        </td>
+                        <td class="col-ghichu">
+                            <textarea class="note-input" rows="2" placeholder="Nhập ghi chú..."></textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-tt">60</td>
+                        <td class="col-hangmuc">
+                            Kiểm tra ngẫu nhiên tô, chén ,dĩa
+                            <div class="image-upload-zone">
+                                <label class="file-input-label" for="file-60">+ Đính kèm ảnh minh chứng</label>
+                                <input type="file" id="file-60" class="file-input" accept="image/*" onchange="previewImage(event, '60')">
+                                <div id="preview-container-60"></div>
+                            </div>
+                        </td>
+                        <td class="col-kdat">
+                            <label class="checkbox-container">
+                                <input type="radio" name="status-60" value="KDAT">
+                                <span class="checkmark kdat-box"></span>
+                            </label>
+                        </td>
+                        <td class="col-dat">
+                            <label class="checkbox-container">
+                                <input type="radio" name="status-60" value="DAT">
+                                <span class="checkmark"></span>
+                            </label>
+                        </td>
+                        <td class="col-ghichu">
+                            <textarea class="note-input" rows="2" placeholder="Nhập ghi chú..."></textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-tt">61</td>
+                        <td class="col-hangmuc">
+                            Kiểm tra vệ sinh rổ để chén dĩa, rổ để muỗng đũa
+                            <div class="image-upload-zone">
+                                <label class="file-input-label" for="file-61">+ Đính kèm ảnh minh chứng</label>
+                                <input type="file" id="file-61" class="file-input" accept="image/*" onchange="previewImage(event, '61')">
+                                <div id="preview-container-61"></div>
+                            </div>
+                        </td>
+                        <td class="col-kdat">
+                            <label class="checkbox-container">
+                                <input type="radio" name="status-61" value="KDAT">
+                                <span class="checkmark kdat-box"></span>
+                            </label>
+                        </td>
+                        <td class="col-dat">
+                            <label class="checkbox-container">
+                                <input type="radio" name="status-61" value="DAT">
+                                <span class="checkmark"></span>
+                            </label>
+                        </td>
+                        <td class="col-ghichu">
+                            <textarea class="note-input" rows="2" placeholder="Nhập ghi chú..."></textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-tt">62</td>
+                        <td class="col-hangmuc">
+                            Kiểm tra kệ, tủ inox, ngăn kéo tủ, bàn để chén dĩa kv rau
+                            <div class="image-upload-zone">
+                                <label class="file-input-label" for="file-62">+ Đính kèm ảnh minh chứng</label>
+                                <input type="file" id="file-62" class="file-input" accept="image/*" onchange="previewImage(event, '62')">
+                                <div id="preview-container-62"></div>
+                            </div>
+                        </td>
+                        <td class="col-kdat">
+                            <label class="checkbox-container">
+                                <input type="radio" name="status-62" value="KDAT">
+                                <span class="checkmark kdat-box"></span>
+                            </label>
+                        </td>
+                        <td class="col-dat">
+                            <label class="checkbox-container">
+                                <input type="radio" name="status-62" value="DAT">
+                                <span class="checkmark"></span>
+                            </label>
+                        </td>
+                        <td class="col-ghichu">
+                            <textarea class="note-input" rows="2" placeholder="Nhập ghi chú..."></textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-tt">63</td>
+                        <td class="col-hangmuc">
+                            Kiểm tra bồn rửa (vòi nước, vệ sinh, máy ozone...)
+                            <div class="image-upload-zone">
+                                <label class="file-input-label" for="file-63">+ Đính kèm ảnh minh chứng</label>
+                                <input type="file" id="file-63" class="file-input" accept="image/*" onchange="previewImage(event, '63')">
+                                <div id="preview-container-63"></div>
+                            </div>
+                        </td>
+                        <td class="col-kdat">
+                            <label class="checkbox-container">
+                                <input type="radio" name="status-63" value="KDAT">
+                                <span class="checkmark kdat-box"></span>
+                            </label>
+                        </td>
+                        <td class="col-dat">
+                            <label class="checkbox-container">
+                                <input type="radio" name="status-63" value="DAT">
+                                <span class="checkmark"></span>
+                            </label>
+                        </td>
+                        <td class="col-ghichu">
+                            <textarea class="note-input" rows="2" placeholder="Nhập ghi chú..."></textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-tt">64</td>
+                        <td class="col-hangmuc">
+                            Kiểm tra ngẫu nhiên vệ sinh khay rau .
+                            <div class="image-upload-zone">
+                                <label class="file-input-label" for="file-64">+ Đính kèm ảnh minh chứng</label>
+                                <input type="file" id="file-64" class="file-input" accept="image/*" onchange="previewImage(event, '64')">
+                                <div id="preview-container-64"></div>
+                            </div>
+                        </td>
+                        <td class="col-kdat">
+                            <label class="checkbox-container">
+                                <input type="radio" name="status-64" value="KDAT">
+                                <span class="checkmark kdat-box"></span>
+                            </label>
+                        </td>
+                        <td class="col-dat">
+                            <label class="checkbox-container">
+                                <input type="radio" name="status-64" value="DAT">
+                                <span class="checkmark"></span>
+                            </label>
+                        </td>
+                        <td class="col-ghichu">
+                            <textarea class="note-input" rows="2" placeholder="Nhập ghi chú..."></textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-tt">65</td>
+                        <td class="col-hangmuc">
+                            Kiểm tra định lượng rau ra mâm, tủ rau, hệ thống phun sương
+                            <div class="image-upload-zone">
+                                <label class="file-input-label" for="file-65">+ Đính kèm ảnh minh chứng</label>
+                                <input type="file" id="file-65" class="file-input" accept="image/*" onchange="previewImage(event, '65')">
+                                <div id="preview-container-65"></div>
+                            </div>
+                        </td>
+                        <td class="col-kdat">
+                            <label class="checkbox-container">
+                                <input type="radio" name="status-65" value="KDAT">
+                                <span class="checkmark kdat-box"></span>
+                            </label>
+                        </td>
+                        <td class="col-dat">
+                            <label class="checkbox-container">
+                                <input type="radio" name="status-65" value="DAT">
+                                <span class="checkmark"></span>
+                            </label>
+                        </td>
+                        <td class="col-ghichu">
+                            <textarea class="note-input" rows="2" placeholder="Nhập ghi chú..."></textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-tt">66</td>
+                        <td class="col-hangmuc">
+                            Kiểm tra quy trình bảo quản rau ..
+                            <div class="image-upload-zone">
+                                <label class="file-input-label" for="file-66">+ Đính kèm ảnh minh chứng</label>
+                                <input type="file" id="file-66" class="file-input" accept="image/*" onchange="previewImage(event, '66')">
+                                <div id="preview-container-66"></div>
+                            </div>
+                        </td>
+                        <td class="col-kdat">
+                            <label class="checkbox-container">
+                                <input type="radio" name="status-66" value="KDAT">
+                                <span class="checkmark kdat-box"></span>
+                            </label>
+                        </td>
+                        <td class="col-dat">
+                            <label class="checkbox-container">
+                                <input type="radio" name="status-66" value="DAT">
+                                <span class="checkmark"></span>
+                            </label>
+                        </td>
+                        <td class="col-ghichu">
+                            <textarea class="note-input" rows="2" placeholder="Nhập ghi chú..."></textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="5" class="section-header">KHU VỰC VỆ SINH (WC)</td>
+                    </tr>
+                    <tr>
+                        <td class="col-tt">67</td>
+                        <td class="col-hangmuc">
+                            Kiểm tra gương soi , bồn cầu, sàn nhà, vách ngăn,
+                            <div class="image-upload-zone">
+                                <label class="file-input-label" for="file-67">+ Đính kèm ảnh minh chứng</label>
+                                <input type="file" id="file-67" class="file-input" accept="image/*" onchange="previewImage(event, '67')">
+                                <div id="preview-container-67"></div>
+                            </div>
+                        </td>
+                        <td class="col-kdat">
+                            <label class="checkbox-container">
+                                <input type="radio" name="status-67" value="KDAT">
+                                <span class="checkmark kdat-box"></span>
+                            </label>
+                        </td>
+                        <td class="col-dat">
+                            <label class="checkbox-container">
+                                <input type="radio" name="status-67" value="DAT">
+                                <span class="checkmark"></span>
+                            </label>
+                        </td>
+                        <td class="col-ghichu">
+                            <textarea class="note-input" rows="2" placeholder="Nhập ghi chú..."></textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-tt">68</td>
+                        <td class="col-hangmuc">
+                            Kiểm tra bồn rửa mặt ( vòi nước, ....)
+                            <div class="image-upload-zone">
+                                <label class="file-input-label" for="file-68">+ Đính kèm ảnh minh chứng</label>
+                                <input type="file" id="file-68" class="file-input" accept="image/*" onchange="previewImage(event, '68')">
+                                <div id="preview-container-68"></div>
+                            </div>
+                        </td>
+                        <td class="col-kdat">
+                            <label class="checkbox-container">
+                                <input type="radio" name="status-68" value="KDAT">
+                                <span class="checkmark kdat-box"></span>
+                            </label>
+                        </td>
+                        <td class="col-dat">
+                            <label class="checkbox-container">
+                                <input type="radio" name="status-68" value="DAT">
+                                <span class="checkmark"></span>
+                            </label>
+                        </td>
+                        <td class="col-ghichu">
+                            <textarea class="note-input" rows="2" placeholder="Nhập ghi chú..."></textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="5" class="section-header">KHU VỰC NHÂN VIÊN & HẠ TẦNG KHÁC</td>
+                    </tr>
+                    <tr>
+                        <td class="col-tt">69</td>
+                        <td class="col-hangmuc">
+                            Kiểm tra sàn phơi đồ, wc
+                            <div class="image-upload-zone">
+                                <label class="file-input-label" for="file-69">+ Đính kèm ảnh minh chứng</label>
+                                <input type="file" id="file-69" class="file-input" accept="image/*" onchange="previewImage(event, '69')">
+                                <div id="preview-container-69"></div>
+                            </div>
+                        </td>
+                        <td class="col-kdat">
+                            <label class="checkbox-container">
+                                <input type="radio" name="status-69" value="KDAT">
+                                <span class="checkmark kdat-box"></span>
+                            </label>
+                        </td>
+                        <td class="col-dat">
+                            <label class="checkbox-container">
+                                <input type="radio" name="status-69" value="DAT">
+                                <span class="checkmark"></span>
+                            </label>
+                        </td>
+                        <td class="col-ghichu">
+                            <textarea class="note-input" rows="2" placeholder="Nhập ghi chú..."></textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-tt">70</td>
+                        <td class="col-hangmuc">
+                            Kiểm tra đèn, quạt, thiết bị điện , rèm ngủ kv nhân viên
+                            <div class="image-upload-zone">
+                                <label class="file-input-label" for="file-70">+ Đính kèm ảnh minh chứng</label>
+                                <input type="file" id="file-70" class="file-input" accept="image/*" onchange="previewImage(event, '70')">
+                                <div id="preview-container-70"></div>
+                            </div>
+                        </td>
+                        <td class="col-kdat">
+                            <label class="checkbox-container">
+                                <input type="radio" name="status-70" value="KDAT">
+                                <span class="checkmark kdat-box"></span>
+                            </label>
+                        </td>
+                        <td class="col-dat">
+                            <label class="checkbox-container">
+                                <input type="radio" name="status-70" value="DAT">
+                                <span class="checkmark"></span>
+                            </label>
+                        </td>
+                        <td class="col-ghichu">
+                            <textarea class="note-input" rows="2" placeholder="Nhập ghi chú..."></textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-tt">71</td>
+                        <td class="col-hangmuc">
+                            Kiểm tra cầu thang lên xuống lầu 2, đổ rác
+                            <div class="image-upload-zone">
+                                <label class="file-input-label" for="file-71">+ Đính kèm ảnh minh chứng</label>
+                                <input type="file" id="file-71" class="file-input" accept="image/*" onchange="previewImage(event, '71')">
+                                <div id="preview-container-71"></div>
+                            </div>
+                        </td>
+                        <td class="col-kdat">
+                            <label class="checkbox-container">
+                                <input type="radio" name="status-71" value="KDAT">
+                                <span class="checkmark kdat-box"></span>
+                            </label>
+                        </td>
+                        <td class="col-dat">
+                            <label class="checkbox-container">
+                                <input type="radio" name="status-71" value="DAT">
+                                <span class="checkmark"></span>
+                            </label>
+                        </td>
+                        <td class="col-ghichu">
+                            <textarea class="note-input" rows="2" placeholder="Nhập ghi chú..."></textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-tt">72</td>
+                        <td class="col-hangmuc">
+                            Kiểm tra kệ giày dép nhân viên
+                            <div class="image-upload-zone">
+                                <label class="file-input-label" for="file-72">+ Đính kèm ảnh minh chứng</label>
+                                <input type="file" id="file-72" class="file-input" accept="image/*" onchange="previewImage(event, '72')">
+                                <div id="preview-container-72"></div>
+                            </div>
+                        </td>
+                        <td class="col-kdat">
+                            <label class="checkbox-container">
+                                <input type="radio" name="status-72" value="KDAT">
+                                <span class="checkmark kdat-box"></span>
+                            </label>
+                        </td>
+                        <td class="col-dat">
+                            <label class="checkbox-container">
+                                <input type="radio" name="status-72" value="DAT">
+                                <span class="checkmark"></span>
+                            </label>
+                        </td>
+                        <td class="col-ghichu">
+                            <textarea class="note-input" rows="2" placeholder="Nhập ghi chú..."></textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-tt">73</td>
+                        <td class="col-hangmuc">
+                            Kiểm tra vị trí miệng cống thoát nước
+                            <div class="image-upload-zone">
+                                <label class="file-input-label" for="file-73">+ Đính kèm ảnh minh chứng</label>
+                                <input type="file" id="file-73" class="file-input" accept="image/*" onchange="previewImage(event, '73')">
+                                <div id="preview-container-73"></div>
+                            </div>
+                        </td>
+                        <td class="col-kdat">
+                            <label class="checkbox-container">
+                                <input type="radio" name="status-73" value="KDAT">
+                                <span class="checkmark kdat-box"></span>
+                            </label>
+                        </td>
+                        <td class="col-dat">
+                            <label class="checkbox-container">
+                                <input type="radio" name="status-73" value="DAT">
+                                <span class="checkmark"></span>
+                            </label>
+                        </td>
+                        <td class="col-ghichu">
+                            <textarea class="note-input" rows="2" placeholder="Nhập ghi chú..."></textarea>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+
+    <script>
+        function previewImage(event, id) {
+            const container = document.getElementById('preview-container-' + id);
+            container.innerHTML = ''; 
+            
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const imgContainer = document.createElement('div');
+                    imgContainer.className = 'preview-img-container';
+                    
+                    const img = document.createElement('img');
+                    img.src = e.target.result;
+                    img.className = 'preview-img';
+                    
+                    const removeBtn = document.createElement('button');
+                    removeBtn.className = 'btn-remove-img';
+                    removeBtn.innerHTML = '×';
+                    removeBtn.onclick = function() {
+                        container.innerHTML = '';
+                        document.getElementById('file-' + id).value = ''; 
+                    };
+                    
+                    imgContainer.appendChild(img);
+                    imgContainer.appendChild(removeBtn);
+                    container.appendChild(imgContainer);
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function exportToPDF() {
+            const labels = document.querySelectorAll('.file-input-label');
+            const removeButtons = document.querySelectorAll('.btn-remove-img');
+            labels.forEach(el => el.style.display = 'none');
+            removeButtons.forEach(el => el.style.display = 'none');
+
+            const element = document.getElementById('printable-content');
+            
+            const opt = {
+                margin:       [10, 10, 10, 10],
+                filename:     'Checklist_Ve_Sinh_Tong_Hop_' + new Date().toISOString().slice(0,10) + '.pdf',
+                image:        { type: 'jpeg', quality: 0.98 },
+                html2canvas:  { scale: 2, useCORS: true },
+                jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
+            };
+
+            html2pdf().set(opt).from(element).save().then(() => {
+                labels.forEach(el => el.style.display = 'inline-block');
+                removeButtons.forEach(el => el.style.display = 'flex');
+            }).catch(err => {
+                console.error(err);
+                labels.forEach(el => el.style.display = 'inline-block');
+                removeButtons.forEach(el => el.style.display = 'flex');
+            });
+        }
+    </script>
+</body>
+</html>
